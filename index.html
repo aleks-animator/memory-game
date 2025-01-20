@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glasić™ Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="cat-mode">
+    <h1>Glasić™ Game</h1>
+    <button id="flip-button" class="pill-button pill-button--panel-switch">Start game</button>
+
+    <div id="game-board">
+        <div id="game-board-front"></div>
+        <div id="game-board-back">
+            <h2>Choose theme of game</h2>
+            <button class="pill-button pill-button--choose-cats pill-button--active" id="cats-btn">Cats</button>
+            <button class="pill-button pill-button--choose-dogs" id="dogs-btn">Dogs</button>
+
+        </div>
+    </div>
+    <div id="timer">Time Left: 30s</div>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

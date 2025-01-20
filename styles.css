@@ -1,0 +1,163 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    background-image: url(images/bg2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    font-size: 60px;
+    margin-bottom: 0;
+    color: #001861;
+}
+
+#game-board-front {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-rows: repeat(3, 1fr);   /* 3 rows */
+    gap: 20px;
+    display: none;
+}
+
+#game-board-back {
+    min-width: 300px;
+    min-height: 300px;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+}
+
+.card {
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightgray;
+    border: 2px solid #555;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden; /* Ensures images do not overflow the card boundaries */
+    position: relative; /* For easier handling of hidden states */
+    transform-style: preserve-3d; /* Enable 3D transformations */
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Initial drop shadow */
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.cat-mode .card {
+    background-image: url(images/block-bg.svg);
+}
+
+.dog-mode .card {
+    background-image: url(images/block-bg-dog.svg);
+}
+
+
+.card img {
+    width: 100%; /* Scale images to card dimensions */
+    height: 100%; /* Keep aspect ratio if necessary */
+    object-fit: cover; /* Ensures the image fits perfectly */
+    display: none; /* Hidden by default */
+}
+
+.card.revealed img,
+.card.matched img {
+    display: block; /* Show image when the card is revealed or matched */
+}
+
+
+.card:hover {
+    transform: translateZ(10px); /* Subtle pop-out effect */
+}
+
+/* Glow effect */
+.card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 10px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.card:hover::after {
+    opacity: 1; /* Show glow on hover */
+}
+
+
+#timer {
+    margin-top: 30px;
+    font-size: 30px;
+    display: none;
+    padding: 10px;
+    background: wheat;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+#timer.shown {
+    display: block;
+}
+
+.pill-button {
+    margin-bottom: 16px;
+    background-color: #001861;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 50px; /* Rounded pill */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pill-button:hover {
+    background-color: #0056d6;
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+.pill-button:active {
+    transform: scale(0.95); /* Slightly smaller on click */
+}
+
+.pill-button--panel-switch {
+    margin: 20px auto;
+}
+
+.pill-button--active {
+    background-color: #FF7F32;
+}
+
+#game-board {
+    display: flex;
+    margin-top: 20px;
+    perspective: 1000px; /* Adjust for more/less depth */
+    padding: 15px;
+    background: wheat;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.8s ease-in-out;
+    transform-origin: center; /* Rotate around the middle */
+}
+
+
+/* Flip effect for the game board */
+#game-board.flip {
+    transform: rotateY(180deg);
+    transition: transform 0.8s ease-in-out;
+}

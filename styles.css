@@ -53,14 +53,18 @@ h1 {
     background-position: center;
 }
 
-.cat-mode .card {
+.cats-mode .card {
     background-image: url(images/block-bg.svg);
 }
 
-.dog-mode .card {
+.dogs-mode .card {
     background-image: url(images/block-bg-dog.svg);
 }
 
+
+.birds-mode .card {
+    background-image: url(images/block-bg-bird.svg);
+}
 
 .card img {
     width: 100%; /* Scale images to card dimensions */

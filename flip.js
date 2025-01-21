@@ -15,7 +15,7 @@ export function addFlipBehavior(buttonSelector, boardElement) {
             backBoard.style.display = isFlipped ? 'none' : 'flex';
 
             // Toggle button text based on the flip state
-            button.textContent = isFlipped ? "Choose game theme" : "Start game";
+            button.textContent = isFlipped ? "Choose theme" : "Start game";
         }, 400);
     });
 }

@@ -1,7 +1,9 @@
-import { gameImages, prepareImages, updateCategory } from './images.js';
+import { gameImages, prepareImages } from './images.js';
 import { addFlipBehavior } from './flip.js';
 import { generateCards } from './init.js';
 import { setGameCategory } from './state.js';
+import { checkAndShowNamePopup, getPlayerName } from './namePopup.js';
+import { saveGameResult, getBestResults, showBestResultsUi } from './scoreStorage.js';
 
 let images = prepareImages(gameImages, 6);
 
@@ -9,12 +11,16 @@ const board = document.getElementById("game-board-front");
 const boardFrame = document.getElementById("game-board");
 let revealedCards = [];
 let matchedPairs = 0;
-let counter = 0;
+let startTime;
 let timer;
 
 generateCards(board, images, revealCard);
-
 addFlipBehavior('#flip-button', boardFrame);
+
+document.addEventListener("DOMContentLoaded", () => {
+    checkAndShowNamePopup();
+    showBestResultsUi();
+});
 
 document.getElementById('cats-btn').addEventListener('click', function() {
     setGameCategory(this);
@@ -31,7 +37,6 @@ document.getElementById('birds-btn').addEventListener('click', function() {
     resetGame();
 });
 
-
 function revealCard(card) {
     if (!timer) {
         startCounter();
@@ -41,8 +46,7 @@ function revealCard(card) {
         card.classList.contains("revealed") ||
         card.classList.contains("matched") ||
         revealedCards.length === 2
-    )
-        return;
+    ) return;
 
     card.classList.remove("hidden");
     card.classList.add("revealed");
@@ -62,7 +66,17 @@ function revealCard(card) {
             revealedCards = [];
             if (matchedPairs === images.length / 2) {
                 clearInterval(timer);
-                setTimeout(() => alert(`Game Over: You Win! Time: ${counter} seconds`), 500);
+                const timeTaken = Math.floor(performance.now() - startTime); // Exact time in ms
+                const playerName = getPlayerName();
+                
+                saveGameResult(playerName, timeTaken);
+
+                setTimeout(() => {
+                    alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
+                    showBestResults();
+                    showBestResultsUi();
+                }, 500);
+
                 setTimeout(() => resetGame(), 1000);
             }
         } else {
@@ -80,17 +94,19 @@ function revealCard(card) {
 function startCounter() {
     const counterDisplay = document.getElementById("timer");
     counterDisplay.classList.add("shown");
+
+    startTime = performance.now(); // Start tracking exact time
+
     timer = setInterval(() => {
-        counter++;
-        counterDisplay.textContent = `Time: ${counter}s`;
-    }, 1000);
+        const elapsed = Math.floor(performance.now() - startTime);
+        counterDisplay.textContent = `Time: ${(elapsed / 1000).toFixed(3)}s`;
+    }, 100); // Update every 100ms for smoother display
 }
 
 function resetGame() {
     const counterDisplay = document.getElementById("timer");
     revealedCards = [];
     matchedPairs = 0;
-    counter = 0;
     clearInterval(timer);
     timer = null;
     counterDisplay.classList.remove("shown");
@@ -98,5 +114,22 @@ function resetGame() {
     images = prepareImages(gameImages, 6);
 
     generateCards(board, images, revealCard);
-    counterDisplay.textContent = `Time: ${counter}s`;
+    counterDisplay.textContent = `Time: 0s`;
+}
+
+export function showBestResults() {
+    const scores = getBestResults();
+    const scoreList = document.getElementById('score-list');
+    scoreList.innerHTML = ''; // Clear existing content
+
+    scores.forEach((score, index) => {
+        const formattedTime = (score.time / 1000).toLocaleString('de-DE', {
+            minimumFractionDigits: 3,
+            maximumFractionDigits: 3
+        });
+
+        const listItem = document.createElement('li');
+        listItem.textContent = `${index + 1}. ${score.name} - ${formattedTime}s`;
+        scoreList.appendChild(listItem);
+    });
 }

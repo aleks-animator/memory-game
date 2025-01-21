@@ -143,6 +143,12 @@ h1 {
     background-color: #FF7F32;
 }
 
+.pill-button--change-name {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
 #game-board {
     display: flex;
     margin-top: 20px;

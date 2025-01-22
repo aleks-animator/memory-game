@@ -44,3 +44,18 @@ export function showBestResultsUi() {
     scoreList.appendChild(fragment);  // Append all items at once
 }
 
+export function setupLeaderboardToggle() {
+    const leaderboard = document.getElementById('leaderboard');
+    const showScoresButton = document.querySelector('.pill-button--show-scores');
+
+    if (showScoresButton && leaderboard) {
+        showScoresButton.addEventListener('click', () => {
+            // Toggle leaderboard visibility
+            if (leaderboard.style.display === 'none' || leaderboard.style.display === '') {
+                leaderboard.style.display = 'block';
+            } else {
+                leaderboard.style.display = 'none';
+            }
+        });
+    }
+}

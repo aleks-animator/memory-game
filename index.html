@@ -6,6 +6,7 @@
     <title>Glasić™ Game</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="progress.css">
 </head>
 <body class="cats-mode">
     <h1>Glasić™ Game</h1>
@@ -56,6 +57,13 @@
     </div>
 
     <button id="change-name-btn" class="pill-button pill-button--change-name">Change Name</button>
+    <button class="pill-button pill-button--show-scores">Show leaderboard</button>
+
+    <div id="progress-container">
+        <div id="progress-line"></div>
+        <div id="bullet"></div>
+        <div class="score-to-beat">Score to beat!</div>
+    </div>
 
     <script type="module" src="main.js"></script>
 </body>

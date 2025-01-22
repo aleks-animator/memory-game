@@ -145,8 +145,14 @@ h1 {
 
 .pill-button--change-name {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
+}
+
+.pill-button--show-scores {
+    position: fixed;
+    top: 20px;
+    left: 20px;
 }
 
 #game-board {

@@ -4,6 +4,9 @@ import { generateCards } from './init.js';
 import { setGameCategory } from './state.js';
 import { checkAndShowNamePopup, getPlayerName } from './namePopup.js';
 import { saveGameResult, getBestResults, showBestResultsUi } from './scoreStorage.js';
+import { startScoreProgress } from './scoreProgress.js';
+import { setupLeaderboardToggle } from './scoreStorage.js';
+
 
 let images = prepareImages(gameImages, 6);
 
@@ -20,7 +23,20 @@ addFlipBehavior('#flip-button', boardFrame);
 document.addEventListener("DOMContentLoaded", () => {
     checkAndShowNamePopup();
     showBestResultsUi();
+    setupLeaderboardToggle();
+
 });
+
+document.getElementById('flip-button').addEventListener('click', function() {
+    startScoreProgress();
+
+    if (timer) {
+        clearInterval(timer); 
+    }
+
+    startCounter(); 
+});
+
 
 document.getElementById('cats-btn').addEventListener('click', function() {
     setGameCategory(this);
@@ -38,9 +54,6 @@ document.getElementById('birds-btn').addEventListener('click', function() {
 });
 
 function revealCard(card) {
-    if (!timer) {
-        startCounter();
-    }
 
     if (
         card.classList.contains("revealed") ||

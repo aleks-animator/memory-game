@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glasić™ Game</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="popup.css">
-    <link rel="stylesheet" href="progress.css">
 </head>
 <body class="cats-mode">
     <h1>Glasić™ Game</h1>
@@ -40,9 +37,9 @@
                 </div>
             </div>
         </div>
-        </div>
-    <div id="timer">Time:</div>
+    </div>
 
+    <div id="timer">Time:</div>
 
     <div id="overlay" class="overlay"></div>
     <div id="name-popup" class="popup">
@@ -52,8 +49,11 @@
     </div>
 
     <div id="leaderboard">
-        <h3>Top 10 Scores</h3>
+        <h3>Your 10 Scores</h3>
         <ul id="score-list"></ul>
+
+        <h3>Global 10 Scores</h3>
+        <ul id="score-list-global"></ul>
     </div>
 
     <button id="change-name-btn" class="pill-button pill-button--change-name">Change Name</button>
@@ -65,6 +65,6 @@
         <div class="score-to-beat">Score to beat!</div>
     </div>
 
-    <script type="module" src="main.js"></script>
+    <script type="module" src="bundle.js"></script>
 </body>
 </html>

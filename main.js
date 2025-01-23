@@ -1,3 +1,9 @@
+// Importing CSS files
+import './styles.css';
+import './popup.css';
+import './progress.css';
+
+// Your existing JS imports and code
 import { gameImages, prepareImages } from './images.js';
 import { addFlipBehavior } from './flip.js';
 import { generateCards } from './init.js';
@@ -6,7 +12,9 @@ import { checkAndShowNamePopup, getPlayerName } from './namePopup.js';
 import { saveGameResult, getBestResults, showBestResultsUi } from './scoreStorage.js';
 import { startScoreProgress } from './scoreProgress.js';
 import { setupLeaderboardToggle } from './scoreStorage.js';
+import app from './firebaseConfig';
 
+console.log("Firebase Initialized:", app);
 
 let images = prepareImages(gameImages, 6);
 
@@ -146,3 +154,10 @@ export function showBestResults() {
         scoreList.appendChild(listItem);
     });
 }
+
+
+// Import all images so Parcel includes them in the build
+function importAll(r) {
+    return r.keys().map(r);
+}
+

@@ -2,7 +2,7 @@
 import './styles.css';
 import './popup.css';
 import './progress.css';
-
+import './front.css';
 // Your existing JS imports and code
 import { gameImages, prepareImages } from './images.js';
 import { addFlipBehavior } from './flip.js';

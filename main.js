@@ -10,7 +10,7 @@ import { generateCards } from './init.js';
 import { setGameCategory } from './state.js';
 import { checkAndShowNamePopup, getPlayerName } from './namePopup.js';
 import { saveGameResult, getBestResults, showBestResultsUi } from './scoreStorage.js';
-import { startScoreProgress } from './scoreProgress.js';
+import { startScoreProgress,resetProgressBar  } from './scoreProgress.js';
 import { setupLeaderboardToggle } from './scoreStorage.js';
 import { saveGameResultToFirestore, fetchGlobalScores } from './scoreStorage.js';  // Import Firebase functions
 import { app } from './firebaseConfig';  // Only import `app` if `db` is not used
@@ -91,7 +91,7 @@ function revealCard(card) {
                 const playerName = getPlayerName();
                 
                 saveGameResult(playerName, timeTaken);
-                saveGameResultToFirestore(playerName, timeTaken);  // Save to Firestore
+                saveGameResultToFirestore(playerName, timeTaken);  
 
                 setTimeout(() => {
                     alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
@@ -99,7 +99,10 @@ function revealCard(card) {
                     showBestResultsUi();
                 }, 500);
 
-                setTimeout(() => resetGame(), 1000);
+                setTimeout(() => {
+                    resetGame();
+                    resetProgressBar(); // Reset progress bar when the game ends
+                }, 1000);
             }
         } else {
             setTimeout(() => {

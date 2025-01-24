@@ -18,7 +18,6 @@ export function assignRandomColors() {
     });
 }
 
-// Function to add animations and transitions to cards
 export function addCardAnimations() {
     const cards = document.querySelectorAll(".card");
     cards.forEach(card => {
@@ -30,24 +29,28 @@ export function addCardAnimations() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            // Calculate rotation angles
-            const rotateX = ((y - centerY) / centerY) * 10; // Adjust 10 for more/less tilt
-            const rotateY = ((centerX - x) / centerX) * 10;
+            // Calculate rotation angles (increased sensitivity)
+            const rotateX = ((y - centerY) / centerY) * 15; // Adjusted for more tilt
+            const rotateY = ((centerX - x) / centerX) * 15; // Adjusted for more tilt
 
-            // Calculate dynamic shadow position
-            const shadowX = (x - centerX) / 10; // Adjust divisor for shadow intensity
-            const shadowY = (y - centerY) / 10;
+            // Calculate dynamic shadow position (increased intensity)
+            const shadowX = (x - centerX) / 15; // Adjust divisor for shadow intensity
+            const shadowY = (y - centerY) / 15;
 
-            // Apply transform and shadow
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
-            card.style.boxShadow = `${shadowX}px ${shadowY}px 15px rgba(0, 0, 0, 0.4), 
-                                    0 0 20px rgba(255, 255, 255, 0.2)`;
+            // Increase light density by changing brightness on hover
+            const brightness = 1 + Math.abs((x - centerX) / centerX) * 0.3; // Light density based on position
+
+            // Apply transform, shadow, and light density
+            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`; // Increased translateZ for depth
+            card.style.boxShadow = `${shadowX}px ${shadowY}px 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 255, 255, 0.3)`; // Stronger shadow
+            card.style.filter = `brightness(${brightness})`; // Light density effect
         });
 
         // Reset transform, shadow, and glow on mouse leave
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'rotateX(0) rotateY(0) translateZ(0)';
             card.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)'; // Default shadow
+            card.style.filter = 'brightness(1)'; // Default light density
         });
     });
 }

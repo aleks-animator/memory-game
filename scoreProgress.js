@@ -1,4 +1,5 @@
 export function startScoreProgress() {
+    const progressContainer = document.getElementById('progress-container');
     const progressLine = document.getElementById('progress-line');
     const bullet = document.getElementById('bullet');
 
@@ -22,5 +23,18 @@ export function startScoreProgress() {
     // Move the bullet smoothly to the end
     setTimeout(() => {
         bullet.style.left = `${progressBarWidth}px`;
+        progressContainer.classList.add('progress-container-active'); // Add active class
     }, 100);
+}
+
+// Function to reset progress bar
+export function resetProgressBar() {
+    const progressContainer = document.getElementById('progress-container');
+    const bullet = document.getElementById('bullet');
+
+    bullet.style.left = `0px`; // Reset bullet to the start
+    bullet.style.transitionDuration = `0s`; // Remove transition
+
+    // Remove active class
+    progressContainer.classList.remove('progress-container-active');
 }

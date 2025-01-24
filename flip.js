@@ -1,3 +1,5 @@
+import { resetProgressBar } from './scoreProgress.js';
+
 export function addFlipBehavior(buttonSelector, boardElement) {
     const button = document.querySelector(buttonSelector);
     const frontBoard = document.getElementById("game-board-front");
@@ -16,6 +18,11 @@ export function addFlipBehavior(buttonSelector, boardElement) {
 
             // Toggle button text based on the flip state
             button.textContent = isFlipped ? "Choose theme" : "Start game";
+
+            // Trigger resetProgressBar when flipping back to front
+            if (!isFlipped) {
+                resetProgressBar();
+            }
         }, 400);
     });
 }

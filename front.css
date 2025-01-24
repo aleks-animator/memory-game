@@ -10,6 +10,7 @@
     margin-top:10px;
     display: flex;
     gap: 20px;
+    margin: 0 30px;
 }
 .preview-images .preview-images-item {
     perspective: 1000px;

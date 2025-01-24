@@ -1,3 +1,6 @@
+import { db } from './firebaseConfig.js';
+import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
+
 export function saveGameResult(playerName, time) {
     let scores = JSON.parse(localStorage.getItem('gameScores')) || [];
 
@@ -57,5 +60,40 @@ export function setupLeaderboardToggle() {
                 leaderboard.style.display = 'none';
             }
         });
+    }
+}
+
+// Firebase integration
+
+export async function saveGameResultToFirestore(playerName, time) {
+    try {
+        await addDoc(collection(db, 'gameScores'), {
+            player: playerName,
+            time: time
+        });
+        console.log('Score saved to Firestore');
+    } catch (error) {
+        console.error('Error saving score:', error);
+    }
+}
+
+export async function fetchGlobalScores() {
+    try {
+        const scoresQuery = query(
+            collection(db, 'gameScores'),
+            orderBy('time', 'asc'),
+            limit(10)
+        );
+        const querySnapshot = await getDocs(scoresQuery);
+
+        const scores = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        return scores;
+    } catch (error) {
+        console.error('Error fetching scores:', error);
+        return [];
     }
 }

@@ -9,6 +9,7 @@ body {
     background-size: 180% 180%;
     animation: gradient-animation 18s ease infinite;
     position: relative;
+    height: 100vh;
 }
 
 body::after {
@@ -19,7 +20,7 @@ body::after {
     width: 100%;
     height: 100%;
     background: url('images/cat-pattern.svg');
-    background-size: 200px 200px; /* Consistent tile size */
+    background-size: 150px 150px; /* Consistent tile size */
     background-repeat: repeat;
     opacity: 0.1; /* Set opacity to 15% */
     pointer-events: none; /* Allows interaction with elements below */
@@ -31,14 +32,14 @@ body::after {
 /* Dogs mode */
 body.dogs-mode::after {
     background: url('images/dog-pattern.svg');
-    background-size: 200px 200px; /* Ensure consistent tiling size */
+    background-size: 150px 150px; /* Ensure consistent tiling size */
 
 }
 
 /* Birds mode */
 body.birds-mode::after {
     background: url('images/bird-pattern.svg');
-    background-size: 200px 200px; /* Keep consistent tile size */
+    background-size: 150px 150px; /* Keep consistent tile size */
 }
 
 

@@ -12,7 +12,9 @@ import { checkAndShowNamePopup, getPlayerName } from './namePopup.js';
 import { saveGameResult, getBestResults, showBestResultsUi } from './scoreStorage.js';
 import { startScoreProgress } from './scoreProgress.js';
 import { setupLeaderboardToggle } from './scoreStorage.js';
-import app from './firebaseConfig';
+import { saveGameResultToFirestore, fetchGlobalScores } from './scoreStorage.js';  // Import Firebase functions
+import { app } from './firebaseConfig';  // Only import `app` if `db` is not used
+
 
 console.log("Firebase Initialized:", app);
 
@@ -30,9 +32,9 @@ addFlipBehavior('#flip-button', boardFrame);
 
 document.addEventListener("DOMContentLoaded", () => {
     checkAndShowNamePopup();
-    showBestResultsUi();
+    showBestResultsUi();  // Show local best results on load
     setupLeaderboardToggle();
-
+    loadGlobalScores();  // Load Firebase global scores
 });
 
 document.getElementById('flip-button').addEventListener('click', function() {
@@ -44,7 +46,6 @@ document.getElementById('flip-button').addEventListener('click', function() {
 
     startCounter(); 
 });
-
 
 document.getElementById('cats-btn').addEventListener('click', function() {
     setGameCategory(this);
@@ -62,7 +63,6 @@ document.getElementById('birds-btn').addEventListener('click', function() {
 });
 
 function revealCard(card) {
-
     if (
         card.classList.contains("revealed") ||
         card.classList.contains("matched") ||
@@ -91,6 +91,7 @@ function revealCard(card) {
                 const playerName = getPlayerName();
                 
                 saveGameResult(playerName, timeTaken);
+                saveGameResultToFirestore(playerName, timeTaken);  // Save to Firestore
 
                 setTimeout(() => {
                     alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
@@ -138,6 +139,25 @@ function resetGame() {
     counterDisplay.textContent = `Time: 0s`;
 }
 
+// Show the top 10 results from Firebase
+async function loadGlobalScores() {
+    const globalScores = await fetchGlobalScores();
+
+    const scoreListGlobal = document.getElementById('score-list-global');
+    scoreListGlobal.innerHTML = ''; // Clear existing content
+
+    globalScores.forEach((score, index) => {
+        const formattedTime = (score.time / 1000).toLocaleString('de-DE', {
+            minimumFractionDigits: 3,
+            maximumFractionDigits: 3
+        });
+
+        const listItem = document.createElement('li');
+        listItem.textContent = `${index + 1}. ${score.player}: ${formattedTime}s`;
+        scoreListGlobal.appendChild(listItem);
+    });
+}
+
 export function showBestResults() {
     const scores = getBestResults();
     const scoreList = document.getElementById('score-list');
@@ -154,10 +174,3 @@ export function showBestResults() {
         scoreList.appendChild(listItem);
     });
 }
-
-
-// Import all images so Parcel includes them in the build
-function importAll(r) {
-    return r.keys().map(r);
-}
-

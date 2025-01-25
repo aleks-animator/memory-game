@@ -1,5 +1,6 @@
 // Importing CSS files
 import './styles.css';
+import './background.css';
 import './popup.css';
 import './progress.css';
 import './front.css';

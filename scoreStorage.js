@@ -99,3 +99,20 @@ export async function fetchGlobalScores() {
         return [];
     }
 }
+export async function loadGlobalScores() {
+    const globalScores = await fetchGlobalScores();
+
+    const scoreListGlobal = document.getElementById('score-list-global');
+    scoreListGlobal.innerHTML = ''; // Clear existing content
+
+    globalScores.forEach((score, index) => {
+        const formattedTime = (score.time / 1000).toLocaleString('de-DE', {
+            minimumFractionDigits: 3,
+            maximumFractionDigits: 3
+        });
+
+        const listItem = document.createElement('li');
+        listItem.textContent = `${index + 1}. ${score.player}: ${formattedTime}s`;
+        scoreListGlobal.appendChild(listItem);
+    });
+}

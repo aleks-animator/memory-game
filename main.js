@@ -9,7 +9,7 @@ import './front.css';
 import { gameState } from './gameState.js';
 import { gameImages, prepareImages } from './images.js';
 import { addFlipBehavior } from './flip.js';
-import { generateCards, resetGame, revealCard } from './init.js';
+import { generateCards, resetGame } from './init.js';
 import { setGameCategory } from './gameMode.js';
 import { checkAndShowNamePopup } from './namePopup.js';
 import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './scoreStorage.js';  // Consolidated imports
@@ -24,7 +24,7 @@ gameState.boardFrame = document.getElementById("game-board");
 gameState.counterDisplay = document.getElementById("timer");
 
 // Generate cards and flip behavior
-generateCards(gameState.board, gameState.images, revealCard);
+generateCards(gameState.board, gameState.images);
 addFlipBehavior('#flip-button', gameState.boardFrame);
 
 document.addEventListener("DOMContentLoaded", () => {

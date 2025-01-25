@@ -6,7 +6,7 @@ import { saveGameResult, saveGameResultToFirestore, showBestResultsUi } from './
 import { getPlayerName } from './namePopup.js';
 import { resetProgressBar } from './gameProgress.js';
 
-export function generateCards(board, images, revealCard) {
+export function generateCards(board, images) {
     board.innerHTML = ""; // Clear the board
     images.forEach(({ img, id }) => {
         const card = document.createElement("div");
@@ -77,7 +77,7 @@ export function revealCard(card) {
 export function resetGame() {
     resetGameState();
     gameState.images = prepareImages(gameImages, 6);
-    generateCards(gameState.board, gameState.images, revealCard);
+    generateCards(gameState.board, gameState.images);
     gameState.counterDisplay.textContent = `Time: 0s`;
 
     toggleTimerVisibility(false);

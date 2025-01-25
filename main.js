@@ -7,21 +7,19 @@ import './front.css';
 import { gameImages, prepareImages } from './images.js';
 import { addFlipBehavior } from './flip.js';
 import { generateCards } from './init.js';
-import { setGameCategory } from './state.js';
+import { setGameCategory } from './gameMode.js';
 import { checkAndShowNamePopup, getPlayerName } from './namePopup.js';
-import { saveGameResult, getBestResults, showBestResultsUi } from './scoreStorage.js';
-import { startScoreProgress,resetProgressBar  } from './scoreProgress.js';
+import { saveGameResult, showBestResultsUi } from './scoreStorage.js';
+import { startScoreProgress, resetProgressBar, toggleTimerVisibility  } from './scoreProgress.js';
 import { setupLeaderboardToggle } from './scoreStorage.js';
-import { saveGameResultToFirestore, fetchGlobalScores } from './scoreStorage.js';  // Import Firebase functions
-import { app } from './firebaseConfig';  // Only import `app` if `db` is not used
+import { saveGameResultToFirestore, fetchGlobalScores } from './scoreStorage.js'; 
 
-
-console.log("Firebase Initialized:", app);
 
 let images = prepareImages(gameImages, 6);
 
 const board = document.getElementById("game-board-front");
 const boardFrame = document.getElementById("game-board");
+const counterDisplay = document.getElementById("timer");
 let revealedCards = [];
 let matchedPairs = 0;
 let startTime;
@@ -95,7 +93,6 @@ function revealCard(card) {
 
                 setTimeout(() => {
                     alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
-                    showBestResults();
                     showBestResultsUi();
                 }, 500);
 
@@ -117,29 +114,24 @@ function revealCard(card) {
 }
 
 function startCounter() {
-    const counterDisplay = document.getElementById("timer");
-    counterDisplay.classList.add("shown");
-
     startTime = performance.now(); // Start tracking exact time
-
+    toggleTimerVisibility(true);
     timer = setInterval(() => {
         const elapsed = Math.floor(performance.now() - startTime);
-        counterDisplay.textContent = `Time: ${(elapsed / 1000).toFixed(3)}s`;
+        counterDisplay.textContent = `Time: ${(elapsed / 1000).toFixed(1)}s`;
     }, 100); // Update every 100ms for smoother display
 }
 
 function resetGame() {
-    const counterDisplay = document.getElementById("timer");
     revealedCards = [];
     matchedPairs = 0;
     clearInterval(timer);
     timer = null;
-    counterDisplay.classList.remove("shown");
-
     images = prepareImages(gameImages, 6);
-
     generateCards(board, images, revealCard);
     counterDisplay.textContent = `Time: 0s`;
+
+    toggleTimerVisibility(false);
 }
 
 // Show the top 10 results from Firebase
@@ -158,22 +150,5 @@ async function loadGlobalScores() {
         const listItem = document.createElement('li');
         listItem.textContent = `${index + 1}. ${score.player}: ${formattedTime}s`;
         scoreListGlobal.appendChild(listItem);
-    });
-}
-
-export function showBestResults() {
-    const scores = getBestResults();
-    const scoreList = document.getElementById('score-list');
-    scoreList.innerHTML = ''; // Clear existing content
-
-    scores.forEach((score, index) => {
-        const formattedTime = (score.time / 1000).toLocaleString('de-DE', {
-            minimumFractionDigits: 3,
-            maximumFractionDigits: 3
-        });
-
-        const listItem = document.createElement('li');
-        listItem.textContent = `${index + 1}. ${score.name} - ${formattedTime}s`;
-        scoreList.appendChild(listItem);
     });
 }

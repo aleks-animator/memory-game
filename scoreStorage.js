@@ -53,15 +53,17 @@ export function setupLeaderboardToggle() {
 
     if (showScoresButton && leaderboard) {
         showScoresButton.addEventListener('click', () => {
-            // Toggle leaderboard visibility
-            if (leaderboard.style.display === 'none' || leaderboard.style.display === '') {
-                leaderboard.style.display = 'block';
+            // Check if the leaderboard is currently hidden (right = 100%) and toggle accordingly
+            if (leaderboard.classList.contains('leaderboard-opened')) {
+                leaderboard.classList.remove('leaderboard-opened');
             } else {
-                leaderboard.style.display = 'none';
+                leaderboard.classList.add('leaderboard-opened');
             }
         });
     }
 }
+
+
 
 // Firebase integration
 

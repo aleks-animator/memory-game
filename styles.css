@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Work Sans", serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,6 +10,21 @@ body {
     animation: gradient-animation 18s ease infinite;
     position: relative;
     height: 100vh;
+    margin: 0;
+    padding: 0;
+    transition: background 1.2s ease-in-out; /* Smooth fade transition */
+}
+
+body.dogs-mode {
+    background: linear-gradient(300deg, #4a9a74, #8ed4b3, #5cb88c);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+}
+
+body.birds-mode {
+    background: linear-gradient(300deg, #ffb347, #ffcc70, #e07b39);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
 }
 
 body::after {
@@ -22,18 +37,23 @@ body::after {
     background: url('images/cat-pattern.svg');
     background-size: 150px 150px; /* Consistent tile size */
     background-repeat: repeat;
-    opacity: 0.1; /* Set opacity to 15% */
+    opacity: 0.15; /* Set opacity to 10% */
     pointer-events: none; /* Allows interaction with elements below */
     z-index: -1; /* Places the pattern behind everything */
     filter: brightness(0) invert(1); /* Converts the pattern to white */
-    transition: background 0.8s ease-in-out, opacity 0.8s ease-in-out; /* Smooth fade effect */
+    
+    /* Smooth transition for background change */
+    transition: background 0.8s ease-in-out, opacity 0.8s ease-in-out;
+
+    /* Separate animation for moving the pattern */
+    animation: diagonal-scroll 260s linear infinite;
 }
+
 
 /* Dogs mode */
 body.dogs-mode::after {
     background: url('images/dog-pattern.svg');
     background-size: 150px 150px; /* Ensure consistent tiling size */
-
 }
 
 /* Birds mode */
@@ -42,6 +62,15 @@ body.birds-mode::after {
     background-size: 150px 150px; /* Keep consistent tile size */
 }
 
+
+@keyframes diagonal-scroll {
+    from {
+        background-position: 0 100%;
+    }
+    to {
+        background-position: 100% 0;
+    }
+}
 
 
 @keyframes gradient-animation {
@@ -58,7 +87,7 @@ body.birds-mode::after {
 
 
 h1 {
-    margin:0;
+    margin:10px 0 0 0;
     font-size: 42px;
     color: #001861;
 }
@@ -145,17 +174,22 @@ h1 {
 
 
 #timer {
-    margin-top: 30px;
     font-size: 30px;
-    display: none;
     padding: 10px;
     background: #d0e3f7;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    translate: -50% 0;
+    width: 300px;
+    text-align: center;
+    transition: top 0.5s ease-in-out
 }
 
 #timer.shown {
-    display: block;
+    top: 10px;
 }
 
 .pill-button {
@@ -194,6 +228,7 @@ h1 {
     position: fixed;
     top: 20px;
     left: 20px;
+    z-index: 3;
 }
 
 #game-board {

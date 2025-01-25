@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glasić™ Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body class="cats-mode">
     <h1>Glasić™ Game</h1>
@@ -50,11 +53,14 @@
     </div>
 
     <div id="leaderboard">
-        <h3>Your 10 Scores</h3>
-        <ul id="score-list"></ul>
-
+        <div class="leaderboard-section">
+            <h3>Your 10 Scores</h3>
+            <ul id="score-list"></ul>
+        </div>
+        <div class="leaderboard-section">
         <h3>Global 10 Scores</h3>
         <ul id="score-list-global"></ul>
+        </div>
     </div>
 
     <button id="change-name-btn" class="pill-button pill-button--change-name">Change Name</button>

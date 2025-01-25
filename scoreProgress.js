@@ -1,3 +1,6 @@
+// resetProgress.js
+
+// Function to start or reset the progress bar animation
 export function startScoreProgress() {
     const progressContainer = document.getElementById('progress-container');
     const progressLine = document.getElementById('progress-line');
@@ -27,7 +30,7 @@ export function startScoreProgress() {
     }, 100);
 }
 
-// Function to reset progress bar
+// Function to reset the progress bar
 export function resetProgressBar() {
     const progressContainer = document.getElementById('progress-container');
     const bullet = document.getElementById('bullet');
@@ -37,4 +40,14 @@ export function resetProgressBar() {
 
     // Remove active class
     progressContainer.classList.remove('progress-container-active');
+}
+
+// Function to show or hide the timer based on game state
+export function toggleTimerVisibility(isVisible) {
+    const counterDisplay = document.getElementById("timer");
+    if (isVisible) {
+        counterDisplay.classList.add("shown");
+    } else {
+        counterDisplay.classList.remove("shown");
+    }
 }

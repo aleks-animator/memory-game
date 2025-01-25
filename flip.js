@@ -1,4 +1,4 @@
-import { resetProgressBar,toggleTimerVisibility } from './scoreProgress.js';
+import { resetProgressBar,toggleTimerVisibility } from './gameProgress.js';
 
 export function addFlipBehavior(buttonSelector, boardElement) {
     const button = document.querySelector(buttonSelector);

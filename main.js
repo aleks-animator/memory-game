@@ -11,7 +11,7 @@ import { generateCards } from './init.js';
 import { setGameCategory } from './gameMode.js';
 import { checkAndShowNamePopup, getPlayerName } from './namePopup.js';
 import { saveGameResult, showBestResultsUi } from './scoreStorage.js';
-import { startScoreProgress, resetProgressBar, toggleTimerVisibility  } from './scoreProgress.js';
+import { startScoreProgress, resetProgressBar, toggleTimerVisibility  } from './gameProgress.js';
 import { setupLeaderboardToggle } from './scoreStorage.js';
 import { saveGameResultToFirestore, fetchGlobalScores } from './scoreStorage.js'; 
 

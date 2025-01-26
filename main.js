@@ -1,19 +1,19 @@
 // Importing CSS files
-import './styles.css';
-import './background.css';
-import './popup.css';
-import './progress.css';
-import './front.css';
-import './gameBoard.css';
+import './css/styles.css';
+import './css/background.css';
+import './css/popup.css';
+import './css/progress.css';
+import './css/front.css';
+import './css/gameBoard.css';
 
-import { gameState } from './gameState.js';
-import { gameImages, prepareImages } from './images.js';
-import { addFlipBehavior } from './flip.js';
-import { generateCards, resetGame } from './init.js';
-import { setGameCategory } from './gameMode.js';
-import { checkAndShowNamePopup } from './namePopup.js';
-import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './scoreStorage.js';  // Consolidated imports
-import { startScoreProgress, toggleTimerVisibility } from './gameProgress.js';
+import { gameState } from './js-modules/gameState.js';
+import { gameImages, prepareImages } from './js-modules/images.js';
+import { addFlipBehavior } from './js-modules/flip.js';
+import { generateCards, resetGame } from './js-modules/init.js';
+import { setGameCategory } from './js-modules/gameMode.js';
+import { checkAndShowNamePopup } from './js-modules/namePopup.js';
+import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './js-modules/scoreStorage.js';  // Consolidated imports
+import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
 
 // Prepare images and set initial game state
 gameState.images = prepareImages(gameImages, 6);

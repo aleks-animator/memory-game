@@ -36,18 +36,16 @@
 }
 
 .cats-mode .card {
-    background-image: url(images/block-bg.svg);
+    background-image: url(../images/block-bg.svg);
 }
 
 .dogs-mode .card {
-    background-image: url(images/block-bg-dog.svg);
+    background-image: url(../images/block-bg-dog.svg);
 }
-
 
 .birds-mode .card {
-    background-image: url(images/block-bg-bird.svg);
+    background-image: url(../images/block-bg-bird.svg);
 }
-
 
 .card.revealed ,
 .card.matched {

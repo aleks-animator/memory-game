@@ -3,10 +3,10 @@ let currentCategory = 'cats'; // Default category is 'cats'
 
 export function updateCategory(category) {
     currentCategory = category; // Update the category
-    gameImages = Array.from({ length: 21 }, (_, i) => `./images/${currentCategory}/${i + 1}.jpg`); // Update the image path
+    gameImages = Array.from({ length: 21 }, (_, i) => `../images/${currentCategory}/${i + 1}.jpg`); // Update the image path
 }
 
-export let gameImages = Array.from({ length: 21 }, (_, i) => `./images/${currentCategory}/${i + 1}.jpg`);
+export let gameImages = Array.from({ length: 21 }, (_, i) => `../images/${currentCategory}/${i + 1}.jpg`);
 
 export function prepareImages(shapes, count = 6) {
     return shuffleImageArray([...shapes]) // Shuffle the array

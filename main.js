@@ -4,7 +4,7 @@ import './background.css';
 import './popup.css';
 import './progress.css';
 import './front.css';
-
+import './gameBoard.css';
 
 import { gameState } from './gameState.js';
 import { gameImages, prepareImages } from './images.js';

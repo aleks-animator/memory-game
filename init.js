@@ -6,22 +6,12 @@ import { saveGameResult, saveGameResultToFirestore, showBestResultsUi } from './
 import { getPlayerName } from './namePopup.js';
 import { resetProgressBar } from './gameProgress.js';
 
+// Function to generate the cards and render them on the board
 export function generateCards(board, images) {
     board.innerHTML = ""; // Clear the board
 
     images.forEach(({ img, id }) => {
-        // Preload the image but don't add it to the DOM yet
-        const image = new Image();
-        image.src = img; // Preload the image
-
-        const card = document.createElement("div");
-        card.classList.add("card", "hidden");
-
-        // The background is handled by CSS, no need to set it in JavaScript
-        card.dataset.image = img;
-        card.dataset.id = id;
-        
-        card.addEventListener("click", () => revealCard(card));
+        const card = createCard(img, id);
         board.appendChild(card);
     });
 
@@ -30,63 +20,109 @@ export function generateCards(board, images) {
     addCardAnimations();
 }
 
+// Function to create a single card
+function createCard(img, id) {
+    const image = preloadImage(img); // Preload the image
+    const card = document.createElement("div");
+    card.classList.add("card", "hidden");
+
+    card.dataset.image = img;
+    card.dataset.id = id;
+
+    // Attach event listener to the card
+    card.addEventListener("click", () => revealCard(card));
+    
+    return card;
+}
+
+// Function to preload an image
+function preloadImage(imgSrc) {
+    const image = new Image();
+    image.src = imgSrc;
+    return image;
+}
+
+// Function to reveal a card
 export function revealCard(card) {
-    if (
-        card.classList.contains("revealed") ||
-        card.classList.contains("matched") ||
-        gameState.revealedCards.length === 2
-    ) return;
+    if (!canRevealCard(card)) return; // Check if the card can be revealed
 
     card.classList.remove("hidden");
     card.classList.add("revealed");
-
-    // Reveal the image by setting the background to the real image
     card.style.backgroundImage = `url("${card.dataset.image}")`;
 
     gameState.revealedCards.push(card);
 
     if (gameState.revealedCards.length === 2) {
-        const [first, second] = gameState.revealedCards;
-
-        const isMatch =
-            first.dataset.id === second.dataset.id;
-
-        if (isMatch) {
-            first.classList.add("matched");
-            second.classList.add("matched");
-            gameState.matchedPairs++;
-            gameState.revealedCards = [];
-            if (gameState.matchedPairs === gameState.images.length / 2) {
-                clearInterval(gameState.timer);
-                const timeTaken = Math.floor(performance.now() - gameState.startTime); // Exact time in ms
-                const playerName = getPlayerName();
-
-                saveGameResult(playerName, timeTaken);
-                saveGameResultToFirestore(playerName, timeTaken);
-
-                setTimeout(() => {
-                    alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
-                    showBestResultsUi();
-                }, 500);
-
-                setTimeout(() => {
-                    resetGame();
-                    resetProgressBar(); // Reset progress bar when the game ends
-                }, 1000);
-            }
-        } else {
-            setTimeout(() => {
-                first.classList.remove("revealed");
-                second.classList.remove("revealed");
-                first.classList.add("hidden");
-                second.classList.add("hidden");
-                first.style.backgroundImage = ''; // Reset background (using CSS placeholder)
-                second.style.backgroundImage = ''; // Reset background (using CSS placeholder)
-                gameState.revealedCards = [];
-            }, 1000);
-        }
+        handleCardMatch();
     }
 }
+
+// Function to check if the card can be revealed
+function canRevealCard(card) {
+    return !(
+        card.classList.contains("revealed") ||
+        card.classList.contains("matched") ||
+        gameState.revealedCards.length === 2
+    );
+}
+
+// Function to handle the case where two cards are revealed
+function handleCardMatch() {
+    const [first, second] = gameState.revealedCards;
+    const isMatch = first.dataset.id === second.dataset.id;
+
+    if (isMatch) {
+        handleMatchedCards(first, second);
+    } else {
+        resetUnmatchedCards(first, second);
+    }
+}
+
+// Function to handle matched cards
+function handleMatchedCards(first, second) {
+    first.classList.add("matched");
+    second.classList.add("matched");
+    gameState.matchedPairs++;
+    gameState.revealedCards = [];
+
+    if (gameState.matchedPairs === gameState.images.length / 2) {
+        endGame();
+    }
+}
+
+// Function to reset unmatched cards
+function resetUnmatchedCards(first, second) {
+    setTimeout(() => {
+        first.classList.remove("revealed");
+        second.classList.remove("revealed");
+        first.classList.add("hidden");
+        second.classList.add("hidden");
+        first.style.backgroundImage = ''; // Reset background (using CSS placeholder)
+        second.style.backgroundImage = ''; // Reset background (using CSS placeholder)
+        gameState.revealedCards = [];
+    }, 1000);
+}
+
+// Function to handle the end of the game
+function endGame() {
+    clearInterval(gameState.timer);
+    const timeTaken = Math.floor(performance.now() - gameState.startTime); // Exact time in ms
+    const playerName = getPlayerName();
+
+    saveGameResult(playerName, timeTaken);
+    saveGameResultToFirestore(playerName, timeTaken);
+
+    setTimeout(() => {
+        alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
+        showBestResultsUi();
+    }, 500);
+
+    setTimeout(() => {
+        resetGame();
+        resetProgressBar(); // Reset progress bar when the game ends
+    }, 1000);
+}
+
 
 
 export function resetGame() {

@@ -8,10 +8,19 @@ import { resetProgressBar } from './gameProgress.js';
 
 export function generateCards(board, images) {
     board.innerHTML = ""; // Clear the board
+
     images.forEach(({ img, id }) => {
+        // Preload the image but don't add it to the DOM yet
+        const image = new Image();
+        image.src = img; // Preload the image
+
         const card = document.createElement("div");
         card.classList.add("card", "hidden");
-        card.innerHTML = `<img src="${img}" data-id="${id}" alt="Card image" />`;
+
+        // The background is handled by CSS, no need to set it in JavaScript
+        card.dataset.image = img;
+        card.dataset.id = id;
+        
         card.addEventListener("click", () => revealCard(card));
         board.appendChild(card);
     });
@@ -30,14 +39,17 @@ export function revealCard(card) {
 
     card.classList.remove("hidden");
     card.classList.add("revealed");
+
+    // Reveal the image by setting the background to the real image
+    card.style.backgroundImage = `url("${card.dataset.image}")`;
+
     gameState.revealedCards.push(card);
 
     if (gameState.revealedCards.length === 2) {
         const [first, second] = gameState.revealedCards;
 
         const isMatch =
-            first.querySelector("img").dataset.id ===
-            second.querySelector("img").dataset.id;
+            first.dataset.id === second.dataset.id;
 
         if (isMatch) {
             first.classList.add("matched");
@@ -68,11 +80,14 @@ export function revealCard(card) {
                 second.classList.remove("revealed");
                 first.classList.add("hidden");
                 second.classList.add("hidden");
+                first.style.backgroundImage = ''; // Reset background (using CSS placeholder)
+                second.style.backgroundImage = ''; // Reset background (using CSS placeholder)
                 gameState.revealedCards = [];
             }, 1000);
         }
     }
 }
+
 
 export function resetGame() {
     resetGameState();

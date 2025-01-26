@@ -17,7 +17,7 @@ export function addFlipBehavior(buttonSelector, boardElement) {
             backBoard.style.display = isFlipped ? 'none' : 'flex';
 
             // Toggle button text based on the flip state
-            button.textContent = isFlipped ? "Choose theme" : "Start game";
+            button.textContent = isFlipped ? "Quit game" : "Start game";
 
             // Trigger resetProgressBar when flipping back to front
             if (!isFlipped) {

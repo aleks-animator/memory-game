@@ -14,6 +14,22 @@ h1 {
     text-align: center;
 }
 
+#game-board-front.rotate {
+    perspective: 1000px; /* Adds depth for 3D effect */
+    transform-origin: center; /* Rotate around the center */
+    animation: spinWheel 45s linear infinite;
+}
+
+@keyframes spinWheel {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(360deg);
+    }
+}
+
+
 .card {
     width: 180px;
     height: 180px;
@@ -48,16 +64,10 @@ h1 {
     background-image: url(images/block-bg-bird.svg);
 }
 
-.card img {
-    width: 100%; /* Scale images to card dimensions */
-    height: 100%; /* Keep aspect ratio if necessary */
-    object-fit: cover; /* Ensures the image fits perfectly */
-    display: none; /* Hidden by default */
-}
 
-.card.revealed img,
-.card.matched img {
-    display: block; /* Show image when the card is revealed or matched */
+.card.revealed ,
+.card.matched {
+    background-size: 100%;
 }
 
 

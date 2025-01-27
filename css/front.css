@@ -1,16 +1,10 @@
-#game-board-front {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    grid-template-rows: repeat(3, 1fr);   /* 3 rows */
-    gap: 20px;
-    display: none;
-}
+
 
 .preview-images {
     margin-top:10px;
     display: flex;
     gap: 20px;
-    margin: 0 30px;
+    margin: 0 30px 20px 30px;
 }
 .preview-images .preview-images-item {
     perspective: 1000px;
@@ -90,4 +84,10 @@
 
 .preview-images .pill-button{
     margin-top: 320px;
+}
+
+.game-modes {
+    background: #b6cbe4;
+    border-radius: 10px;
+    padding: 20px;
 }

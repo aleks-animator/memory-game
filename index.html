@@ -8,12 +8,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-<body class="cats-mode">
+<body class="cats-layout">
     <h1>Glasić™ Game</h1>
     <div id="game-board">
         <div id="game-board-front"></div>
         <div id="game-board-back">
-            <h2>Choose theme of game</h2>
+            <h2>Theme</h2>
+
             <div class="preview-images">
                 <div class="preview-images-item preview-images-item-cats active">
                     <div class="image-wrapper">
@@ -38,6 +39,12 @@
                     <img src="images/front/3t.png" class="transparent-img" alt="">
                     <button class="pill-button" id="birds-btn">Birds</button>
                 </div>
+            </div>
+            <h2>Game modes</h2>
+            <div class="game-modes">
+                <button class="pill-button pill-button--active" id="normal-mode">Normal</button>
+                <button class="pill-button" id="rotate-mode">Rotate</button>
+                <button class="pill-button" id="switch-row-mode">Switch Row</button>
             </div>
         </div>
     </div>

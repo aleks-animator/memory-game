@@ -5,6 +5,7 @@ import { toggleTimerVisibility } from './gameProgress.js'; // Ensure timer visib
 import { saveGameResult, saveGameResultToFirestore, showBestResultsUi } from './scoreStorage.js';
 import { getPlayerName } from './namePopup.js';
 import { resetProgressBar } from './gameProgress.js';
+import { setGameCategory, setGameMode} from "./gameMode";
 
 // Function to generate the cards and render them on the board
 export function generateCards(board, images) {
@@ -45,16 +46,13 @@ function preloadImage(imgSrc) {
 // Function to reveal a card
 export function revealCard(card) {
     if (!canRevealCard(card)) return; // Check if the card can be revealed
-
-    card.classList.remove("hidden");
-    card.classList.add("revealed");
-    card.style.backgroundImage = `url("${card.dataset.image}")`;
-
-    gameState.revealedCards.push(card);
-
-    if (gameState.revealedCards.length === 2) {
-        handleCardMatch();
-    }
+        card.classList.remove("hidden");
+        card.classList.add("revealed");
+        card.style.backgroundImage = `url("${card.dataset.image}")`;
+        gameState.revealedCards.push(card);
+        if (gameState.revealedCards.length === 2) {
+            handleCardMatch();
+        }
 }
 
 // Function to check if the card can be revealed
@@ -123,8 +121,6 @@ function endGame() {
     }, 1000);
 }
 
-
-
 export function resetGame() {
     resetGameState();
     gameState.images = prepareImages(gameImages, 6);
@@ -133,3 +129,26 @@ export function resetGame() {
 
     toggleTimerVisibility(false);
 }
+// Function to set event listeners for game categories
+function setupCategoryListeners(categories) {
+    categories.forEach(category => {
+        document.getElementById(`${category}-btn`).addEventListener('click', function() {
+            setGameCategory(this);
+            resetGame();
+        });
+    });
+}
+
+// Function to set event listeners for game modes
+function setupModeListeners(modes) {
+    modes.forEach(mode => {
+        document.getElementById(`${mode}-mode`).addEventListener('click', function() {
+            setGameMode(this);
+            resetGame();
+        });
+    });
+}
+
+// Call functions with respective category and mode arrays
+setupCategoryListeners(['cats', 'dogs', 'birds']);
+setupModeListeners(['normal', 'rotate', 'switch-row']);

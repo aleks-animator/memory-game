@@ -4,8 +4,6 @@ h1 {
     color: #001861;
 }
 
-
-
 #game-board-back {
     min-width: 300px;
     min-height: 300px;
@@ -36,7 +34,6 @@ h1 {
 }
 
 .pill-button {
-    margin-bottom: 16px;
     background-color: #001861;
     color: white;
     border: none;

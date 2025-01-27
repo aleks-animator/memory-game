@@ -1,9 +1,3 @@
-#game-board-front.rotate {
-    perspective: 1000px; /* Adds depth for 3D effect */
-    transform-origin: center; /* Rotate around the center */
-    animation: spinWheel 45s linear infinite;
-}
-
 @keyframes spinWheel {
     from {
         transform: rotateZ(0deg);
@@ -13,6 +7,14 @@
     }
 }
 
+
+#game-board-front {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-rows: repeat(3, 1fr);   /* 3 rows */
+    gap: 20px;
+    display: none;
+}
 
 .card {
     width: 180px;
@@ -24,26 +26,25 @@
     border: 2px solid #555;
     cursor: pointer;
     border-radius: 10px;
-    overflow: hidden; /* Ensures images do not overflow the card boundaries */
-    position: relative; /* For easier handling of hidden states */
-    transform-style: preserve-3d; /* Enable 3D transformations */
-    transition: transform 0.2s ease, background-color 0.3s ease;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Initial drop shadow */
+    overflow: hidden;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease, background-color 0.3s ease, top 0.5s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
 }
 
-.cats-mode .card {
+.cats-layout .card {
     background-image: url(../images/block-bg.svg);
 }
 
-.dogs-mode .card {
+.dogs-layout .card {
     background-image: url(../images/block-bg-dog.svg);
 }
 
-.birds-mode .card {
+.birds-layout .card {
     background-image: url(../images/block-bg-bird.svg);
 }
 
@@ -51,7 +52,6 @@
 .card.matched {
     background-size: 100%;
 }
-
 
 .card:hover {
     transform: translateZ(10px); /* Subtle pop-out effect */
@@ -75,3 +75,18 @@
 .card:hover::after {
     opacity: 1; /* Show glow on hover */
 }
+
+/* mode rotate */
+#game-board-front.rotate-mode {
+    perspective: 1000px; /* Adds depth for 3D effect */
+    transform-origin: center; /* Rotate around the center */
+    animation: spinWheel 45s linear infinite;
+    padding: 146px 90px;
+}
+
+#game-board-front.rotate-mode .card {
+    width: 140px;
+    height: 140px;
+}
+
+

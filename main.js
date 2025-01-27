@@ -9,8 +9,7 @@ import './css/gameBoard.css';
 import { gameState } from './js-modules/gameState.js';
 import { gameImages, prepareImages } from './js-modules/images.js';
 import { addFlipBehavior } from './js-modules/flip.js';
-import { generateCards, resetGame } from './js-modules/init.js';
-import { setGameCategory } from './js-modules/gameMode.js';
+import { generateCards} from './js-modules/init.js';
 import { checkAndShowNamePopup } from './js-modules/namePopup.js';
 import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './js-modules/scoreStorage.js';  // Consolidated imports
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
@@ -36,27 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.getElementById('flip-button').addEventListener('click', function() {
     startScoreProgress();
-
     if (gameState.timer) {
         clearInterval(gameState.timer);
     }
-
     startCounter();
-});
-
-document.getElementById('cats-btn').addEventListener('click', function() {
-    setGameCategory(this);
-    resetGame();
-});
-
-document.getElementById('dogs-btn').addEventListener('click', function() {
-    setGameCategory(this);
-    resetGame();
-});
-
-document.getElementById('birds-btn').addEventListener('click', function() {
-    setGameCategory(this);
-    resetGame();
 });
 
 function startCounter() {

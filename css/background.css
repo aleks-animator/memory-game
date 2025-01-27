@@ -15,13 +15,13 @@ body {
     transition: background 1.2s ease-in-out; /* Smooth fade transition */
 }
 
-body.dogs-mode {
+body.dogs-layout {
     background: linear-gradient(300deg, #4a9a74, #8ed4b3, #5cb88c);
     background-size: 180% 180%;
     animation: gradient-animation 18s ease infinite;
 }
 
-body.birds-mode {
+body.birds-layout {
     background: linear-gradient(300deg, #ffb347, #ffcc70, #e07b39);
     background-size: 180% 180%;
     animation: gradient-animation 18s ease infinite;
@@ -51,13 +51,13 @@ body::after {
 
 
 /* Dogs mode */
-body.dogs-mode::after {
+body.dogs-layout::after {
     background: url('../images/dog-pattern.svg');
     background-size: 150px 150px; /* Ensure consistent tiling size */
 }
 
 /* Birds mode */
-body.birds-mode::after {
+body.birds-layout::after {
     background: url('../images/bird-pattern.svg');
     background-size: 150px 150px; /* Keep consistent tile size */
 }

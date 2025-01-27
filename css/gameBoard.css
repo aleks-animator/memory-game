@@ -29,7 +29,7 @@
     overflow: hidden;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.2s ease, background-color 0.3s ease, top 0.5s ease;
+    transition: transform 0.2s ease, background-color 0.3s ease, top 0.3s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     background-size: 80%;
     background-repeat: no-repeat;
@@ -77,14 +77,14 @@
 }
 
 /* mode rotate */
-#game-board-front.rotate-mode {
+#game-board.rotate-mode #game-board-front {
     perspective: 1000px; /* Adds depth for 3D effect */
     transform-origin: center; /* Rotate around the center */
     animation: spinWheel 45s linear infinite;
     padding: 146px 90px;
 }
 
-#game-board-front.rotate-mode .card {
+#game-board.rotate-mode #game-board-front .card {
     width: 140px;
     height: 140px;
 }

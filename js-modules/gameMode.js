@@ -51,7 +51,6 @@ function swapRows() {
     rows.forEach((card) => {
         card.style.position = 'relative';
         card.style.top = '0px';  // Ensure initial top position is set
-        card.style.transition = 'top 2s ease';  // Apply transition for smooth movement
     });
 
     // Choose one of the three options randomly, ensuring it's different from the last one
@@ -86,7 +85,6 @@ function startSwapping() {
     if (!intervalId) {
         swapRows();  // Initial execution
         intervalId = setInterval(swapRows, 3000);
-        console.log('Row swapping started');
     }
 }
 
@@ -95,7 +93,6 @@ function stopSwapping() {
     if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
-        console.log('Row swapping stopped');
     }
 }
 
@@ -106,14 +103,37 @@ export function setGameMode(btn) {
     const gameMode = btn.id;
 
     // Remove active class from all game mode buttons
-    document.querySelectorAll('.game-modes .pill-button').forEach(button => {
+    document.querySelectorAll('.game-modes__action .pill-button').forEach(button => {
         button.classList.remove('pill-button--active');
     });
 
-    btn.classList.toggle('pill-button--active');
+    // Add active class to the clicked button
+    btn.classList.add('pill-button--active');
 
-    // Update game board with selected mode
-    const gameBoard = document.getElementById('game-board-front');
+    // Hide all decor items
+    document.querySelectorAll('.game-modes__decor-item').forEach(item => {
+        item.classList.remove('game-modes__decor-item--show');
+    });
+
+    // Hide all descriptions
+    document.querySelectorAll('.game-modes__description-item').forEach(item => {
+        item.classList.remove('game-modes__description-item--show');
+    });
+
+    // Show the related decor item based on the rel attribute
+    const relatedDecor = document.querySelector(`.game-modes__decor-item[rel="${gameMode}"]`);
+    if (relatedDecor) {
+        relatedDecor.classList.add('game-modes__decor-item--show');
+    }
+
+    // Show the related decor item based on the rel attribute
+    const relatedDesc = document.querySelector(`.game-modes__description-item[rel="${gameMode}"]`);
+    if (relatedDesc) {
+        relatedDesc.classList.add('game-modes__description-item--show');
+    }
+
+    // Update game board with the selected mode
+    const gameBoard = document.getElementById('game-board');
     gameBoard.className = '';
     gameBoard.classList.add(gameMode);
 

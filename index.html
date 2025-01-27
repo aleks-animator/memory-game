@@ -13,7 +13,6 @@
     <div id="game-board">
         <div id="game-board-front"></div>
         <div id="game-board-back">
-            <h2>Theme</h2>
 
             <div class="preview-images">
                 <div class="preview-images-item preview-images-item-cats active">
@@ -21,15 +20,16 @@
                         <img src="images/front/1.jpg" alt="cat">
                     </div>
                     <img src="images/front/1t.png" class="transparent-img" alt="">
-                    <button class="pill-button pill-button--active" id="cats-btn">Cats</button>
-
+                    <p class="preview-images__team-name">Team Cats</p>
+                    <button class="pill-button pill-button--active" id="cats-btn">Choose</button>
                 </div>
                 <div class="preview-images-item preview-images-item-dogs">
                     <div class="image-wrapper">
                         <img src="images/front/2.jpg" alt="dog">
                     </div>
                     <img src="images/front/2t.png" class="transparent-img" alt="">
-                    <button class="pill-button" id="dogs-btn">Dogs</button>
+                    <p class="preview-images__team-name">Team Dogs</p>
+                    <button class="pill-button" id="dogs-btn">Choose</button>
 
                 </div>
                 <div class="preview-images-item preview-images-item-birds">
@@ -37,14 +37,32 @@
                         <img src="images/front/3.jpg" alt="bird">
                     </div>
                     <img src="images/front/3t.png" class="transparent-img" alt="">
-                    <button class="pill-button" id="birds-btn">Birds</button>
+                    <p class="preview-images__team-name">Team Birds</p>
+                    <button class="pill-button" id="birds-btn">Choose</button>
                 </div>
             </div>
             <h2>Game modes</h2>
             <div class="game-modes">
-                <button class="pill-button pill-button--active" id="normal-mode">Normal</button>
-                <button class="pill-button" id="rotate-mode">Rotate</button>
-                <button class="pill-button" id="switch-row-mode">Switch Row</button>
+                <div class="game-modes__action">
+                    <button class="pill-button pill-button--active" id="normal-mode">Normal</button>
+                    <button class="pill-button" id="rotate-mode">Rotate</button>
+                    <button class="pill-button" id="switch-row-mode">Switch Row</button>
+                </div>
+                <div class="game-modes__decor">
+                    <div class="game-modes__decor-item game-modes__decor-item--show" rel="normal-mode">
+                        <svg viewBox="-10 -10 70 70" xmlns="http://www.w3.org/2000/svg"><g id="row1"><rect x="5" y="5" width="15" height="15"/><rect x="25" y="5" width="15" height="15"/><rect x="45" y="5" width="15" height="15"/></g><g id="row2"><rect x="5" y="25" width="15" height="15"/><rect x="25" y="25" width="15" height="15"/><rect x="45" y="25" width="15" height="15"/></g><g id="row3"><rect x="5" y="45" width="15" height="15"/><rect x="25" y="45" width="15" height="15"/><rect x="45" y="45" width="15" height="15"/></g></svg>
+                    </div>
+                    <div class="game-modes__decor-item" rel="rotate-mode">
+                        <svg viewBox="-10 -10 70 70" xmlns="http://www.w3.org/2000/svg"><g id="rotate-wheel"><g id="row1-rotate"><rect x="5" y="5" width="15" height="15"/><rect x="25" y="5" width="15" height="15"/><rect x="45" y="5" width="15" height="15"/></g><g id="row2-rotate"><rect x="5" y="25" width="15" height="15"/><rect x="25" y="25" width="15" height="15"/><rect x="45" y="25" width="15" height="15"/></g><g id="row3-rotate"><rect x="5" y="45" width="15" height="15"/><rect x="25" y="45" width="15" height="15"/><rect x="45" y="45" width="15" height="15"/></g></g><animateTransform xlink:href="#rotate-wheel" attributeName="transform" type="rotate" values="0 30 30; 90 30 30; 360 30 30" keyTimes="0; 0.1; 1" dur="4s" repeatCount="indefinite"/></svg>
+                    </div>
+                    <div class="game-modes__decor-item" rel="switch-row-mode">
+                        <svg viewBox="-10 -10 70 70" xmlns="http://www.w3.org/2000/svg"><g id="row1-switch"><rect x="5" y="5" width="15" height="15"/><rect x="25" y="5" width="15" height="15"/><rect x="45" y="5" width="15" height="15"/></g><g id="row2-switch"><rect x="5" y="25" width="15" height="15"/><rect x="25" y="25" width="15" height="15"/><rect x="45" y="25" width="15" height="15"/></g><g id="row3-switch"><rect x="5" y="45" width="15" height="15"/><rect x="25" y="45" width="15" height="15"/><rect x="45" y="45" width="15" height="15"/></g><animateTransform xlink:href="#row1-switch" attributeName="transform" type="translate" values="0 0; 0 0; 0 20; 0 20; 0 0" keyTimes="0; 0.5; 0.65; 0.95; 1" dur="4.15s" begin="0s" repeatCount="indefinite"/><animateTransform xlink:href="#row2-switch" attributeName="transform" type="translate" values="0 0; 0 0; 0 -20; 0 -20; 0 0" keyTimes="0; 0.5; 0.65; 0.95; 1" dur="4.15s" begin="0s" repeatCount="indefinite"/></svg>                    </div>
+                </div>
+                <div class="game-modes__description">
+                    <p class="game-modes__description-item game-modes__description-item--show" rel="normal-mode">Find pairs among hidden images</p>
+                    <p class="game-modes__description-item"  rel="rotate-mode">Whole board is rotating</p>
+                    <p class="game-modes__description-item"  rel="switch-row-mode">Rows are swapping occasionally</p>
+                </div>
             </div>
         </div>
     </div>
@@ -76,7 +94,7 @@
     <div id="progress-container">
         <div id="progress-line"></div>
         <div id="bullet"></div>
-        <div class="score-to-beat">Score to beat!</div>
+        <div class="score-to-beat">Highscore</div>
     </div>
 
     <script type="module" src="bundle.js"></script>

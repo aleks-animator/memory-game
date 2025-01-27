@@ -1,9 +1,22 @@
+@font-face {
+    font-family: 'WickedMouse';
+    src: url('../fonts/WickedMouse-aGoK.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 h1 {
-    margin:10px 0 0 0;
+    margin: 10px 0 0 0;
     font-size: 42px;
     color: #001861;
 }
 
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #001861;
+    margin: 0 0 20px 0;
+}
 #game-board-back {
     min-width: 300px;
     min-height: 300px;
@@ -79,11 +92,17 @@ h1 {
     background: #d0e3f7;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.8s ease-in-out, background 0.5s ease-in-out;
     transform-origin: center; /* Rotate around the middle */
 }
 
+#game-board.rotate-mode {
+    background: #f7e3d0;
+}
 
+#game-board.switch-row-mode{
+    background: #d0f7d0;
+}
 /* Flip effect for the game board */
 #game-board.flip {
     transform: rotateY(180deg);

@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'Digital-7';
+    src: url('/fonts/digital-7-V7.ttf') format('truetype'),
+         url('/fonts/digital-7-V7.woff') format('woff'),
+         url('/fonts/digital-7-V7.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'WickedMouse';
+    src: url('../fonts/WickedMouse-aGoK.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+h1 {
+    margin: 10px 0 0 0;
+    font-size: 42px;
+    color: #001861;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #001861;
+    margin: 0 0 20px 0;
+}
+
+p {
+    margin: 0
+}

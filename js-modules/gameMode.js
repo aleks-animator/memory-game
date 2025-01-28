@@ -110,21 +110,11 @@ export function setGameMode(btn) {
     // Add active class to the clicked button
     btn.classList.add('pill-button--active');
 
-    // Hide all decor items
-    document.querySelectorAll('.game-modes__decor-item').forEach(item => {
-        item.classList.remove('game-modes__decor-item--show');
-    });
-
     // Hide all descriptions
     document.querySelectorAll('.game-modes__description-item').forEach(item => {
         item.classList.remove('game-modes__description-item--show');
     });
 
-    // Show the related decor item based on the rel attribute
-    const relatedDecor = document.querySelector(`.game-modes__decor-item[rel="${gameMode}"]`);
-    if (relatedDecor) {
-        relatedDecor.classList.add('game-modes__decor-item--show');
-    }
 
     // Show the related decor item based on the rel attribute
     const relatedDesc = document.querySelector(`.game-modes__description-item[rel="${gameMode}"]`);

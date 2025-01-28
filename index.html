@@ -48,16 +48,6 @@
                     <button class="pill-button" id="rotate-mode">Rotate</button>
                     <button class="pill-button" id="switch-row-mode">Switch Row</button>
                 </div>
-                <div class="game-modes__decor">
-                    <div class="game-modes__decor-item game-modes__decor-item--show" rel="normal-mode">
-                        <svg viewBox="-10 -10 70 70" xmlns="http://www.w3.org/2000/svg"><g id="row1"><rect x="5" y="5" width="15" height="15"/><rect x="25" y="5" width="15" height="15"/><rect x="45" y="5" width="15" height="15"/></g><g id="row2"><rect x="5" y="25" width="15" height="15"/><rect x="25" y="25" width="15" height="15"/><rect x="45" y="25" width="15" height="15"/></g><g id="row3"><rect x="5" y="45" width="15" height="15"/><rect x="25" y="45" width="15" height="15"/><rect x="45" y="45" width="15" height="15"/></g></svg>
-                    </div>
-                    <div class="game-modes__decor-item" rel="rotate-mode">
-                        <svg viewBox="-10 -10 70 70" xmlns="http://www.w3.org/2000/svg"><g id="rotate-wheel"><g id="row1-rotate"><rect x="5" y="5" width="15" height="15"/><rect x="25" y="5" width="15" height="15"/><rect x="45" y="5" width="15" height="15"/></g><g id="row2-rotate"><rect x="5" y="25" width="15" height="15"/><rect x="25" y="25" width="15" height="15"/><rect x="45" y="25" width="15" height="15"/></g><g id="row3-rotate"><rect x="5" y="45" width="15" height="15"/><rect x="25" y="45" width="15" height="15"/><rect x="45" y="45" width="15" height="15"/></g></g><animateTransform xlink:href="#rotate-wheel" attributeName="transform" type="rotate" values="0 30 30; 90 30 30; 360 30 30" keyTimes="0; 0.1; 1" dur="4s" repeatCount="indefinite"/></svg>
-                    </div>
-                    <div class="game-modes__decor-item" rel="switch-row-mode">
-                        <svg viewBox="-10 -10 70 70" xmlns="http://www.w3.org/2000/svg"><g id="row1-switch"><rect x="5" y="5" width="15" height="15"/><rect x="25" y="5" width="15" height="15"/><rect x="45" y="5" width="15" height="15"/></g><g id="row2-switch"><rect x="5" y="25" width="15" height="15"/><rect x="25" y="25" width="15" height="15"/><rect x="45" y="25" width="15" height="15"/></g><g id="row3-switch"><rect x="5" y="45" width="15" height="15"/><rect x="25" y="45" width="15" height="15"/><rect x="45" y="45" width="15" height="15"/></g><animateTransform xlink:href="#row1-switch" attributeName="transform" type="translate" values="0 0; 0 0; 0 20; 0 20; 0 0" keyTimes="0; 0.5; 0.65; 0.95; 1" dur="4.15s" begin="0s" repeatCount="indefinite"/><animateTransform xlink:href="#row2-switch" attributeName="transform" type="translate" values="0 0; 0 0; 0 -20; 0 -20; 0 0" keyTimes="0; 0.5; 0.65; 0.95; 1" dur="4.15s" begin="0s" repeatCount="indefinite"/></svg>                    </div>
-                </div>
                 <div class="game-modes__description">
                     <p class="game-modes__description-item game-modes__description-item--show" rel="normal-mode">Find pairs among hidden images</p>
                     <p class="game-modes__description-item"  rel="rotate-mode">Whole board is rotating</p>
@@ -68,7 +58,7 @@
     </div>
     <button id="flip-button" class="pill-button pill-button--panel-switch">Start game</button>
 
-    <div id="timer">Time:</div>
+    <div id="timer">00:00</div>
 
     <div id="overlay" class="overlay"></div>
     <div id="name-popup" class="popup">

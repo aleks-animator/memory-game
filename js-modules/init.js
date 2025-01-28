@@ -125,7 +125,7 @@ export function resetGame() {
     resetGameState();
     gameState.images = prepareImages(gameImages, 6);
     generateCards(gameState.board, gameState.images);
-    gameState.counterDisplay.textContent = `Time: 0s`;
+    gameState.counterDisplay.textContent = `00:00`;
 
     toggleTimerVisibility(false);
 }

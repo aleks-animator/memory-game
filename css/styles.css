@@ -1,22 +1,4 @@
-@font-face {
-    font-family: 'WickedMouse';
-    src: url('../fonts/WickedMouse-aGoK.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
 
-h1 {
-    margin: 10px 0 0 0;
-    font-size: 42px;
-    color: #001861;
-}
-
-h2 {
-    font-size: 20px;
-    font-weight: bold;
-    color: #001861;
-    margin: 0 0 20px 0;
-}
 #game-board-back {
     min-width: 300px;
     min-height: 300px;
@@ -28,7 +10,8 @@ h2 {
 
 
 #timer {
-    font-size: 30px;
+    font-family: 'Digital-7', monospace;
+    font-size: 40px;
     padding: 10px;
     background: #d0e3f7;
     border-radius: 10px;
@@ -65,6 +48,7 @@ h2 {
 
 .pill-button--panel-switch {
     margin: 20px auto;
+    z-index: 5;
 }
 
 .pill-button--active {
@@ -84,6 +68,13 @@ h2 {
     z-index: 3;
 }
 
+.pill-button--show-scores {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 3;
+}
+
 #game-board {
     display: flex;
     margin-top: 20px;
@@ -92,7 +83,7 @@ h2 {
     background: #d0e3f7;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    transition: transform 0.8s ease-in-out, background 0.5s ease-in-out;
+    transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s;
     transform-origin: center; /* Rotate around the middle */
 }
 

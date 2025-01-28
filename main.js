@@ -5,6 +5,7 @@ import './css/popup.css';
 import './css/progress.css';
 import './css/front.css';
 import './css/gameBoard.css';
+import './css/typo.css';
 
 import { gameState } from './js-modules/gameState.js';
 import { gameImages, prepareImages } from './js-modules/images.js';
@@ -45,8 +46,15 @@ function startCounter() {
     gameState.startTime = performance.now(); // Start tracking exact time
     toggleTimerVisibility(true);
     gameState.timer = setInterval(() => {
-        const elapsed = Math.floor(performance.now() - gameState.startTime);
-        gameState.counterDisplay.textContent = `Time: ${(elapsed / 1000).toFixed(1)}s`;
+        const elapsed = performance.now() - gameState.startTime; // Elapsed time in ms
+        const seconds = Math.floor(elapsed / 1000); // Total seconds
+        const milliseconds = Math.floor((elapsed % 1000) / 10); // Milliseconds (0-99)
+
+        // Format seconds and milliseconds to always show 2 digits (e.g., 09:02)
+        const formattedSeconds = String(seconds).padStart(2, '0');
+        const formattedMilliseconds = String(milliseconds).padStart(2, '0');
+
+        // Update the display with the formatted time
+        gameState.counterDisplay.textContent = `${formattedSeconds}:${formattedMilliseconds}`;
     }, 100); // Update every 100ms for smoother display
 }
-

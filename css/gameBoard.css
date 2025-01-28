@@ -77,6 +77,12 @@
 }
 
 /* mode rotate */
+
+#game-board.rotate-mode.flip {
+    border-radius: 50%;
+    transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s ease 0.5s;
+}
+
 #game-board.rotate-mode #game-board-front {
     perspective: 1000px; /* Adds depth for 3D effect */
     transform-origin: center; /* Rotate around the center */

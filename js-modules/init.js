@@ -6,6 +6,8 @@ import { saveGameResult, saveGameResultToFirestore, showBestResultsUi } from './
 import { getPlayerName } from './namePopup.js';
 import { resetProgressBar } from './gameProgress.js';
 import { setGameCategory, setGameMode, handleFocusMode, checkForDefeat, resetFocusMode, resetRevealClasses } from "./gameMode";
+import { flipBoard } from './flip.js'; // Import the flipBoard function
+
 // Function to generate the cards and render them on the board
 export function generateCards(board, images) {
     board.innerHTML = ""; // Clear the board
@@ -16,7 +18,7 @@ export function generateCards(board, images) {
     });
 
     // Apply visual enhancements
-    assignRandomColors(); 
+    assignRandomColors();
     addCardAnimations();
 }
 
@@ -31,7 +33,7 @@ function createCard(img, id) {
 
     // Attach event listener to the card
     card.addEventListener("click", () => revealCard(card));
-    
+
     return card;
 }
 
@@ -62,10 +64,10 @@ export function revealCard(card) {
             if (checkForDefeat(first, second)) {
                 gameState.isDefeat = true; // Mark the game as lost
                 endGame();
-                     
-            resetRevealClasses(first);
-            resetRevealClasses(second);
-      
+
+                resetRevealClasses(first);
+                resetRevealClasses(second);
+
                 return; // Stop further processing
             }
         }
@@ -127,7 +129,6 @@ function resetUnmatchedCards(first, second) {
     }, 1000);
 }
 
-
 function endGame() {
     clearInterval(gameState.timer);
     const timeTaken = Math.floor(performance.now() - gameState.startTime); // Exact time in ms
@@ -156,6 +157,16 @@ function endGame() {
 }
 
 export function resetGame() {
+    const boardElement = document.getElementById("game-board");
+    const frontBoard = document.getElementById("game-board-front");
+    const backBoard = document.getElementById("game-board-back");
+    const button = document.querySelector("#flip-button");
+
+    // Flip the board back to the front if it's flipped
+    if (boardElement.classList.contains('flip')) {
+        flipBoard(boardElement, frontBoard, backBoard, button);
+    }
+
     resetGameState();
     gameState.images = prepareImages(gameImages, 6);
     generateCards(gameState.board, gameState.images);

@@ -1,7 +1,38 @@
+#game-board {
+    display: flex;
+    margin-top: 20px;
+    perspective: 1000px; /* Adjust for more/less depth */
+    padding: 15px;
+    background: #d0e3f7;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s;
+    transform-origin: center; /* Rotate around the middle */
+}
+
+#game-board.rotate-mode {
+    background: #f7e3d0;
+}
+
+#game-board.switch-row-mode{
+    background: #d0f7d0;
+}
+
+#game-board.focus-mode{
+    background: #f7d0d0;
+}
+
+/* Flip effect for the game board */
+#game-board.flip {
+    transform: rotateY(180deg);
+    transition: transform 0.8s ease-in-out;
+}
+
+
+
 
 #game-board-back {
-    min-width: 300px;
-    min-height: 300px;
+    width: 760px;
     flex-direction: column;
     display: flex;
     text-align: center;
@@ -73,31 +104,6 @@
     top: 20px;
     left: 20px;
     z-index: 3;
-}
-
-#game-board {
-    display: flex;
-    margin-top: 20px;
-    perspective: 1000px; /* Adjust for more/less depth */
-    padding: 15px;
-    background: #d0e3f7;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s;
-    transform-origin: center; /* Rotate around the middle */
-}
-
-#game-board.rotate-mode {
-    background: #f7e3d0;
-}
-
-#game-board.switch-row-mode{
-    background: #d0f7d0;
-}
-/* Flip effect for the game board */
-#game-board.flip {
-    transform: rotateY(180deg);
-    transition: transform 0.8s ease-in-out;
 }
 
 

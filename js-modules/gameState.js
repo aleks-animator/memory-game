@@ -7,8 +7,11 @@ export const gameState = {
     timer: null,
     board: null,
     boardFrame: null,
+    mode: "normal-mode",
     counterDisplay: null,
-    currentCategory: null
+    currentCategory: null,
+    isDefeat: false,
+    isFlipped: false 
 };
 
 // Function to reset game state
@@ -19,4 +22,6 @@ export function resetGameState() {
     gameState.timer = null;
     gameState.images = [];
     gameState.currentCategory = null;
+    gameState.isDefeat = false;
+    gameState.isFlipped = false;
 }

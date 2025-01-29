@@ -14,6 +14,7 @@
     grid-template-rows: repeat(3, 1fr);   /* 3 rows */
     gap: 20px;
     display: none;
+    transform: rotateY(180deg);
 }
 
 .card {
@@ -76,6 +77,23 @@
     opacity: 1; /* Show glow on hover */
 }
 
+
+.card.second-reveal {
+    
+    &::before {
+        content: "Last Chance!!";
+        padding-top: 3px;
+        background: maroon;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 24px;
+        text-align: center;
+        color: white;
+        font-size: 16px;
+    }
+}
 /* mode rotate */
 
 #game-board.rotate-mode.flip {

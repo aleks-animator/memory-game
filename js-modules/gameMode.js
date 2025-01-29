@@ -1,5 +1,5 @@
 import { updateCategory } from './images.js';
-
+import { gameState } from './gameState.js';
 // ------------------------------
 // Game Category Selection
 // ------------------------------
@@ -37,6 +37,43 @@ export function setGameCategory(btn) {
 let intervalId = null;  // Variable to store the interval ID
 let previousChoice = null;  // Store previous choice to avoid repetition
 const cardOuterHeight = 180 + 24;  // Card height + gap (fixed value)
+const cardOpenCounts = new Map();
+
+// Function to handle focus mode logic
+export function handleFocusMode(card) {
+    if (!cardOpenCounts.has(card)) {
+        cardOpenCounts.set(card, 0); // Initialize the count for the card
+    }
+
+    const count = cardOpenCounts.get(card) + 1;
+    cardOpenCounts.set(card, count);
+
+    // Add CSS classes based on the number of reveals
+    if (count === 1) {
+        card.classList.add("first-reveal"); // Mark as first reveal
+    } else if (count === 2) {
+        card.classList.add("second-reveal"); // Mark as second reveal
+    }
+}
+
+// Function to check for defeat in focus mode
+export function checkForDefeat(first, second) {
+    // If either card is a second-reveal and the cards don't match, return true
+    return (
+        (first.classList.contains("second-reveal") || second.classList.contains("second-reveal")) &&
+        first.dataset.id !== second.dataset.id
+    );
+}
+
+// Function to reset focus mode state
+export function resetFocusMode() {
+    cardOpenCounts.clear(); // Clear the counts when the game resets
+}
+
+// Function to reset reveal classes for a card
+export function resetRevealClasses(card) {
+    card.classList.remove("first-reveal", "second-reveal");
+}
 
 function swapRows() {
     const grid = document.getElementById('game-board-front');
@@ -115,8 +152,7 @@ export function setGameMode(btn) {
         item.classList.remove('game-modes__description-item--show');
     });
 
-
-    // Show the related decor item based on the rel attribute
+    // Show the related description based on the rel attribute
     const relatedDesc = document.querySelector(`.game-modes__description-item[rel="${gameMode}"]`);
     if (relatedDesc) {
         relatedDesc.classList.add('game-modes__description-item--show');
@@ -133,4 +169,7 @@ export function setGameMode(btn) {
     } else {
         stopSwapping();
     }
+
+    // Set the current game mode in the game state
+    gameState.mode = gameMode;
 }

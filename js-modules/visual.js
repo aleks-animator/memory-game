@@ -38,7 +38,7 @@ export function addCardAnimations() {
             const shadowY = (y - centerY) / 15;
 
             // Increase light density by changing brightness on hover
-            const brightness = 1 + Math.abs((x - centerX) / centerX) * 0.3; // Light density based on position
+            const brightness = 1 + Math.abs((x - centerX) / centerX) * 0.2; // Light density based on position
 
             // Apply transform, shadow, and light density
             card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`; // Increased translateZ for depth

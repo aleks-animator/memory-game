@@ -28,7 +28,6 @@ export function setGameCategory(btn) {
         previewItem.classList.add('active');
     }
     gameState.team = category;
-    console.log(gameState.team);
     updateCategory(category);
 }
 

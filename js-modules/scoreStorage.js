@@ -1,5 +1,6 @@
 import { db } from './firebaseConfig.js';
-import { collection, addDoc, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy, limit, where } from 'firebase/firestore';
+import { gameState } from './gameState.js';
 
 export function saveGameResult(playerName, time) {
     let scores = JSON.parse(localStorage.getItem('gameScores')) || [];
@@ -67,52 +68,85 @@ export function setupLeaderboardToggle() {
 
 // Firebase integration
 
-export async function saveGameResultToFirestore(playerName, time) {
+export async function saveGameResultToFirestore(playerName, timeTaken) {
+    if (!playerName) return;
+
+    const scoreData = {
+        player: playerName,
+        score: timeTaken,
+        mode: gameState.mode,  // Include game mode
+        team: gameState.team,  // Include team
+        timestamp: new Date().toISOString()
+    };
+
     try {
-        await addDoc(collection(db, 'gameScores'), {
-            player: playerName,
-            time: time
-        });
-        console.log('Score saved to Firestore');
+        const scoresRef = collection(db, "scores");
+        await addDoc(scoresRef, scoreData);
+        console.log("Score saved successfully:", scoreData);
     } catch (error) {
-        console.error('Error saving score:', error);
+        console.error("Error saving score:", error);
     }
 }
+
+const gameModes = ["normal-mode", "focus-mode", "rotate-mode", "switch-row-mode"];
 
 export async function fetchGlobalScores() {
     try {
-        const scoresQuery = query(
-            collection(db, 'gameScores'),
-            orderBy('time', 'asc'),
-            limit(10)
-        );
-        const querySnapshot = await getDocs(scoresQuery);
+        const allScores = {};
 
-        const scores = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
+        for (const mode of gameModes) {
+            const scoresQuery = query(
+                collection(db, 'scores'),
+                where("mode", "==", mode),  // Filter by game mode
+                orderBy('score', 'asc'),    // Get lowest times first
+                limit(10)                   // Limit to top 10 per mode
+            );
 
-        return scores;
+            const querySnapshot = await getDocs(scoresQuery);
+            const scores = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            allScores[mode] = scores;
+        }
+
+        return allScores;
     } catch (error) {
         console.error('Error fetching scores:', error);
-        return [];
+        return {};
     }
 }
+
 export async function loadGlobalScores() {
     const globalScores = await fetchGlobalScores();
+    console.log('Global scores:', globalScores);
 
     const scoreListGlobal = document.getElementById('score-list-global');
     scoreListGlobal.innerHTML = ''; // Clear existing content
 
-    globalScores.forEach((score, index) => {
-        const formattedTime = (score.time / 1000).toLocaleString('de-DE', {
-            minimumFractionDigits: 3,
-            maximumFractionDigits: 3
+    for (const mode of gameModes) {
+        const modeScores = globalScores[mode] || [];
+
+        // Create a section for this game mode
+        const modeSection = document.createElement('div');
+        modeSection.innerHTML = `<h3>${mode.replace('-', ' ').toUpperCase()}</h3>`;
+
+        const list = document.createElement('ul');
+
+        modeScores.forEach((score, index) => {
+            const formattedTime = (score.score / 1000).toLocaleString('de-DE', {
+                minimumFractionDigits: 3,
+                maximumFractionDigits: 3
+            });
+
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${score.player} (Team: ${score.team}): ${formattedTime}s`;
+
+            list.appendChild(listItem);
         });
 
-        const listItem = document.createElement('li');
-        listItem.textContent = `${index + 1}. ${score.player}: ${formattedTime}s`;
-        scoreListGlobal.appendChild(listItem);
-    });
+        modeSection.appendChild(list);
+        scoreListGlobal.appendChild(modeSection);
+    }
 }

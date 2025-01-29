@@ -1,4 +1,3 @@
-// gameState.js
 export const gameState = {
     images: [],
     revealedCards: [],
@@ -11,7 +10,8 @@ export const gameState = {
     counterDisplay: null,
     currentCategory: null,
     isDefeat: false,
-    isFlipped: false 
+    isFlipped: false,
+    team: 'cats'  // <-- Added this line
 };
 
 // Function to reset game state

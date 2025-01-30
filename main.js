@@ -6,12 +6,14 @@ import './css/progress.css';
 import './css/front.css';
 import './css/gameBoard.css';
 import './css/typo.css';
+import './css/badges.css';
+import './css/buttons.css';
 
 import { gameState } from './js-modules/gameState.js';
 import { gameImages, prepareImages } from './js-modules/images.js';
 import { addFlipBehavior } from './js-modules/flip.js';
 import { generateCards} from './js-modules/init.js';
-import { checkAndShowNamePopup } from './js-modules/namePopup.js';
+import { checkAndShowNamePopup, updatePlayerName } from './js-modules/namePopup.js';
 import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './js-modules/scoreStorage.js'; 
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
 
@@ -29,6 +31,7 @@ addFlipBehavior('#flip-button', gameState.boardFrame);
 
 document.addEventListener("DOMContentLoaded", () => {
     checkAndShowNamePopup();
+    updatePlayerName();
     showBestResultsUi();  // Show local best results on load
     setupLeaderboardToggle();
     loadGlobalScores();  // Load Firebase global scores

@@ -17,7 +17,8 @@ export const gameState = {
         "focus-mode": [],
         "rotate-mode": [],
         "switch-row-mode": []
-    }
+    },
+    playerName: localStorage.getItem('playerName') || null
 };
 
 // Function to reset game state

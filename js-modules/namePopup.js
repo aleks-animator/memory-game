@@ -1,3 +1,5 @@
+import { gameState } from './gameState.js';
+
 export function checkAndShowNamePopup() {
     const playerName = getPlayerName();
 
@@ -25,6 +27,9 @@ function saveName() {
 
     if (nameInput) {
         localStorage.setItem('playerName', nameInput);
+        gameState.playerName = nameInput; // Aktualisiere gameState
+        updatePlayerName(); // Name in der UI aktualisieren
+
         document.getElementById('name-popup').style.display = 'none';
         document.getElementById('overlay').style.display = 'none';
     } else {
@@ -40,3 +45,12 @@ document.getElementById('change-name-btn')?.addEventListener('click', function()
         document.getElementById('player-name').value = currentName; // Pre-fill the name field
     }
 });
+
+export function updatePlayerName() {
+    const playerName = gameState?.playerName || getPlayerName();
+    const nameElement = document.querySelector('.player-panel__name');
+
+    if (nameElement && playerName) {
+        nameElement.textContent = playerName;
+    }
+}

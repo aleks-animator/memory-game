@@ -111,6 +111,9 @@ export async function fetchGlobalScores() {
             allScores[mode] = scores;
         }
 
+        // Update gameState.scores with the fetched scores
+        gameState.scores = allScores;
+
         return allScores;
     } catch (error) {
         console.error('Error fetching scores:', error);
@@ -118,9 +121,10 @@ export async function fetchGlobalScores() {
     }
 }
 
+
 export async function loadGlobalScores() {
     const globalScores = await fetchGlobalScores();
-    console.log('Global scores:', globalScores);
+    console.log('Updated gameState.scores:', gameState.scores);
 
     const scoreListGlobal = document.getElementById('score-list-global');
     scoreListGlobal.innerHTML = ''; // Clear existing content
@@ -150,3 +154,4 @@ export async function loadGlobalScores() {
         scoreListGlobal.appendChild(modeSection);
     }
 }
+

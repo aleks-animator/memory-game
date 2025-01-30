@@ -48,7 +48,7 @@
 
 
 #leaderboard {
-    padding: 15px;
+    margin: 0;
     background: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -57,9 +57,9 @@
     width: 100%;
     right: 100%;
     bottom: 0;
-    z-index: 2;
+    z-index: 6;
     transition: right 0.5s ease-in-out;
-    padding: 10px;
+    padding: 10px 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -72,21 +72,37 @@
 
 #leaderboard h3 {
     margin: 30px 0;
-    font-size: 30px;
-    text-align: center;
+    font-size: 16px;
+    padding: 10px;
 }
 
 .leaderboard-section {
-    padding: 15px;
-    width: 48%;
+    margin: 0 20px;
+    padding: 0 20px;
+    width: calc(50% - 80px);
     background: #afc7e0;
     border-radius: 10px;
 }
 
+.leaderboard-section ul {
+    margin: 0;
+    padding: 0;
+
+}
+
 .leaderboard-section li {
+    font-size: 14px;
     padding: 10px;
-    font-size: 24px;
     list-style: none;
 }
 
+#score-list-global {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#score-list-global > div {
+    width: 50%;
+    border-bottom: 1px solid black;
+}
 

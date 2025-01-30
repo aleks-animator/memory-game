@@ -11,7 +11,13 @@ export const gameState = {
     currentCategory: null,
     isDefeat: false,
     isFlipped: false,
-    team: 'cats'  // <-- Added this line
+    team: 'cats',
+    scores: {
+        "normal-mode": [],
+        "focus-mode": [],
+        "rotate-mode": [],
+        "switch-row-mode": []
+    }
 };
 
 // Function to reset game state

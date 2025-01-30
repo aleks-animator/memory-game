@@ -29,21 +29,42 @@ export function addCardAnimations() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
 
-            // Calculate rotation angles (increased sensitivity)
-            const rotateX = ((y - centerY) / centerY) * 15; // Adjusted for more tilt
-            const rotateY = ((centerX - x) / centerX) * 15; // Adjusted for more tilt
+            // Detect if the game board is flipped
+            const isFlipped = document.querySelector("#game-board").classList.contains("flip");
+
+            // Tilt factor for the "pressing down" effect
+            const tiltFactor = 10; // Increase for a stronger tilt effect
+
+            // Calculate distance from the center (normalized to -1 to 1)
+            const deltaX = (x - centerX) / centerX; // Range: -1 to 1
+            const deltaY = (y - centerY) / centerY; // Range: -1 to 1
+
+            // Apply a non-linear scaling to exaggerate the edge effect
+            const edgeFactor = 2; // Increase to make edges tilt more
+            const scaledDeltaX = Math.pow(Math.abs(deltaX), edgeFactor) * Math.sign(deltaX);
+            const scaledDeltaY = Math.pow(Math.abs(deltaY), edgeFactor) * Math.sign(deltaY);
+
+            // Calculate rotation based on the scaled deltas
+            // Reverse the tilt effect on both axes
+            const rotateX = isFlipped
+                ? -scaledDeltaY * tiltFactor // Reverse X rotation when flipped
+                : scaledDeltaY * tiltFactor; // Normal X rotation (reversed)
+
+            const rotateY = isFlipped
+                ? scaledDeltaX * tiltFactor // Reverse Y rotation when flipped
+                : -scaledDeltaX * tiltFactor; // Normal Y rotation (reversed)
+
+            // Apply transform with perspective for depth effect
+            card.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
+
 
             // Calculate dynamic shadow position (increased intensity)
-            const shadowX = (x - centerX) / 15; // Adjust divisor for shadow intensity
-            const shadowY = (y - centerY) / 15;
+            const shadowX = scaledDeltaX * 4; // Adjust for shadow intensity
+            const shadowY = scaledDeltaY * 4;
 
-            // Increase light density by changing brightness on hover
-            const brightness = 1 + Math.abs((x - centerX) / centerX) * 0.2; // Light density based on position
-
-            // Apply transform, shadow, and light density
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`; // Increased translateZ for depth
-            card.style.boxShadow = `${shadowX}px ${shadowY}px 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 255, 255, 0.3)`; // Stronger shadow
-            card.style.filter = `brightness(${brightness})`; // Light density effect
+            // Apply shadow and lighting effects
+            card.style.boxShadow = `${shadowX}px ${shadowY}px 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 255, 255, 0.3)`;
+            card.style.filter = `brightness(${1 + Math.abs(scaledDeltaX * scaledDeltaY) * 0.2})`; // Light density effect
         });
 
         // Reset transform, shadow, and glow on mouse leave

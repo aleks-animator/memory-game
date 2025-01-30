@@ -28,17 +28,12 @@
     transition: transform 0.8s ease-in-out;
 }
 
-
-
-
 #game-board-back {
     width: 840px;
     flex-direction: column;
     display: flex;
     text-align: center;
 }
-
-
 
 #timer {
     font-family: 'Digital-7', monospace;
@@ -96,14 +91,7 @@
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 3;
-}
-
-.pill-button--show-scores {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 3;
+    z-index: 7;
 }
 
 

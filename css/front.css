@@ -61,7 +61,7 @@
     opacity: 1;
     background-image: linear-gradient(
             to bottom,
-            transparent 46%,
+            transparent 26%,
             rgba(12, 13, 19, 0.5) 68%,
             rgba(12, 13, 19) 97%
     );
@@ -69,7 +69,8 @@
 
 .preview-images__team-name {
     font-family: 'WickedMouse';
-    font-size: 24px;
+    letter-spacing: 0.02rem;
+    font-size: 20px;
     left: 50%;
     translate: -50% 0;
     color: white;
@@ -105,7 +106,7 @@
 }
 
 .preview-images .pill-button{
-    margin-top: 320px;
+    margin-top: 290px;
 }
 
 .game-modes {

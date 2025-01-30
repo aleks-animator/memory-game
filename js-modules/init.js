@@ -2,7 +2,7 @@ import { assignRandomColors, addCardAnimations } from './visual.js';
 import { gameState, resetGameState } from './gameState.js';
 import { prepareImages, gameImages } from './images.js';
 import { toggleTimerVisibility } from './gameProgress.js'; // Ensure timer visibility toggle is imported
-import { saveGameResult, saveGameResultToFirestore, showBestResultsUi } from './scoreStorage.js';
+import { saveGameResult, saveGameResultToFirestore, showBestResultsUi, loadGlobalScores } from './scoreStorage.js';
 import { getPlayerName } from './namePopup.js';
 import { resetProgressBar } from './gameProgress.js';
 import { setGameCategory, setGameMode, handleFocusMode, checkForDefeat, resetFocusMode, resetRevealClasses } from "./gameMode";
@@ -138,6 +138,7 @@ function endGame() {
         const playerName = getPlayerName();
         saveGameResult(playerName, timeTaken);
         saveGameResultToFirestore(playerName, timeTaken);
+        loadGlobalScores();
     }
 
     // Show appropriate message
@@ -201,5 +202,5 @@ function setupModeListeners(modes) {
 }
 
 // Call functions with respective category and mode arrays
-setupCategoryListeners(['cats', 'dogs', 'birds']);
+setupCategoryListeners(['cats', 'dogs', 'birds', 'seaanimals']);
 setupModeListeners(['normal','focus','rotate','switch-row']);

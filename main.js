@@ -12,7 +12,7 @@ import { gameImages, prepareImages } from './js-modules/images.js';
 import { addFlipBehavior } from './js-modules/flip.js';
 import { generateCards} from './js-modules/init.js';
 import { checkAndShowNamePopup } from './js-modules/namePopup.js';
-import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './js-modules/scoreStorage.js';  // Consolidated imports
+import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './js-modules/scoreStorage.js'; 
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
 
 // Prepare images and set initial game state

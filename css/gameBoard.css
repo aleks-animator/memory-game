@@ -49,6 +49,11 @@
     background-image: url(../images/block-bg-bird.svg);
 }
 
+.seaanimals-layout .card {
+    background-image: url(../images/block-bg-sea.svg);
+}
+
+
 .card.revealed ,
 .card.matched {
     background-size: 100%;

@@ -62,6 +62,11 @@ body.birds-layout::after {
     background-size: 150px 150px; /* Keep consistent tile size */
 }
 
+/* Sea mode */
+body.seaanimals-layout::after {
+    background: url('../images/sea-pattern.svg');
+    background-size: 150px 150px; /* Keep consistent tile size */
+}
 
 @keyframes diagonal-scroll {
     from {

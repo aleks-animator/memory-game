@@ -57,14 +57,26 @@ export function addCardAnimations() {
             // Apply transform with perspective for depth effect
             card.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(15px)`;
 
+            // Only apply lighting if the mouse is near the edges
+            const edgeThreshold = 0.9; // Focus on edges only (0 to 1)
+            const isNearEdge = Math.abs(deltaX) > edgeThreshold || Math.abs(deltaY) > edgeThreshold;
 
-            // Calculate dynamic shadow position (increased intensity)
-            const shadowX = scaledDeltaX * 4; // Adjust for shadow intensity
-            const shadowY = scaledDeltaY * 4;
+            // Only apply lighting if the mouse is on the opposite (pushed) side
+            const isOppositeSide = (deltaX * rotateY > 0 || deltaY * rotateX > 0);
 
-            // Apply shadow and lighting effects
-            card.style.boxShadow = `${shadowX}px ${shadowY}px 20px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 255, 255, 0.3)`;
-            card.style.filter = `brightness(${1 + Math.abs(scaledDeltaX * scaledDeltaY) * 0.2})`; // Light density effect
+            if (isNearEdge && isOppositeSide) {
+                // Calculate lighting intensity based on tilt (reduced by 20%)
+                const lightX = -scaledDeltaX * 8; // Reduced by 20% (from 10 to 8)
+                const lightY = -scaledDeltaY * 8; // Reduced by 20% (from 10 to 8)
+
+                // Apply subtle shadow and lighting effects (reduced by 20%)
+                card.style.boxShadow = `${lightX}px ${lightY}px 8px rgba(0, 0, 0, 0.32)`; // Reduced shadow blur and opacity
+                card.style.filter = `brightness(1.08) drop-shadow(${lightX}px ${lightY}px 4px rgba(255, 255, 255, 0.24))`; // Reduced brightness and drop-shadow
+            } else {
+                // Default shadow and lighting when not near the edge or not on the opposite side
+                card.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+                card.style.filter = 'brightness(1)';
+            }
         });
 
         // Reset transform, shadow, and glow on mouse leave

@@ -1,4 +1,5 @@
-// resetProgress.js
+import { gameState } from './gameState.js';
+
 
 // Function to start or reset the progress bar animation
 export function startScoreProgress() {
@@ -6,11 +7,12 @@ export function startScoreProgress() {
     const progressLine = document.getElementById('progress-line');
     const bullet = document.getElementById('bullet');
 
-    // Get the game scores from localStorage
-    const scores = JSON.parse(localStorage.getItem('gameScores')) || [];
+    // Get the scores for the current game mode
+    const currentMode = gameState.mode;
+    const scoresForMode = gameState.scores[currentMode] || [];
 
-    // Find the lowest time in scores or default to 60 seconds if no scores exist
-    const bestTime = scores.length > 0 ? Math.min(...scores.map(score => score.time)) : 60000; // Default to 60s
+    // Find the lowest time in scores for the current mode or default to 60 seconds if no scores exist
+    const bestTime = scoresForMode.length > 0 ? Math.min(...scoresForMode.map(score => score.score)) : 60000; // Default to 60s
 
     const progressBarWidth = progressLine.offsetWidth;
 

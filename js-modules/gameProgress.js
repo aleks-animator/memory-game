@@ -1,4 +1,4 @@
-import { gameState } from './gameState.js';
+import { getGameState } from './gameState.js';
 
 
 // Function to start or reset the progress bar animation
@@ -8,6 +8,7 @@ export function startScoreProgress() {
     const bullet = document.getElementById('bullet');
 
     // Get the scores for the current game mode
+    const gameState = getGameState();
     const currentMode = gameState.mode;
     const scoresForMode = gameState.scores[currentMode] || [];
 

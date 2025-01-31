@@ -1,6 +1,6 @@
 import { db } from './firebaseConfig.js';
 import { collection, addDoc, getDocs, query, orderBy, limit, where } from 'firebase/firestore';
-import { gameState } from './gameState.js';
+import { getGameState, setGameState } from './gameState.js';
 
 export function saveGameResult(playerName, time) {
     let scores = JSON.parse(localStorage.getItem('gameScores')) || [];
@@ -64,18 +64,18 @@ export function setupLeaderboardToggle() {
     }
 }
 
-
-
 // Firebase integration
 
 export async function saveGameResultToFirestore(playerName, timeTaken) {
     if (!playerName) return;
 
+    const { mode, team } = getGameState();
+
     const scoreData = {
         player: playerName,
         score: timeTaken,
-        mode: gameState.mode,  // Include game mode
-        team: gameState.team,  // Include team
+        mode: mode,  // Include game mode
+        team: team,  // Include team
         timestamp: new Date().toISOString()
     };
 
@@ -112,7 +112,7 @@ export async function fetchGlobalScores() {
         }
 
         // Update gameState.scores with the fetched scores
-        gameState.scores = allScores;
+        setGameState({ scores: allScores });
 
         return allScores;
     } catch (error) {
@@ -121,10 +121,10 @@ export async function fetchGlobalScores() {
     }
 }
 
-
 export async function loadGlobalScores() {
     const globalScores = await fetchGlobalScores();
-    console.log('Updated gameState.scores:', gameState.scores);
+    const { scores } = getGameState();
+    console.log('Updated gameState.scores:', scores);
 
     const scoreListGlobal = document.getElementById('score-list-global');
     scoreListGlobal.innerHTML = ''; // Clear existing content
@@ -154,4 +154,3 @@ export async function loadGlobalScores() {
         scoreListGlobal.appendChild(modeSection);
     }
 }
-

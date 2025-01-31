@@ -1,4 +1,5 @@
-export const gameState = {
+// gameState.js
+let gameState = {
     images: [],
     revealedCards: [],
     matchedPairs: 0,
@@ -21,14 +22,24 @@ export const gameState = {
     playerName: localStorage.getItem('playerName') || null
 };
 
-// Function to reset game state
+export function getGameState() {
+    return gameState;
+}
+
+export function setGameState(newState) {
+    gameState = { ...gameState, ...newState }; 
+}
+
 export function resetGameState() {
-    gameState.revealedCards = [];
-    gameState.matchedPairs = 0;
-    clearInterval(gameState.timer);
-    gameState.timer = null;
-    gameState.images = [];
-    gameState.currentCategory = null;
-    gameState.isDefeat = false;
-    gameState.isFlipped = false;
+    gameState = {
+        ...gameState, 
+        revealedCards: [],
+        matchedPairs: 0,
+        startTime: null,
+        timer: null,
+        images: [],
+        currentCategory: null,
+        isDefeat: false,
+        isFlipped: false
+    };
 }

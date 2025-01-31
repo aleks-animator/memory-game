@@ -1,5 +1,5 @@
 import { updateCategory } from './images.js';
-import { gameState } from './gameState.js';
+import { setGameState } from './gameState.js';
 // ------------------------------
 // Game Category Selection
 // ------------------------------
@@ -27,7 +27,9 @@ export function setGameCategory(btn) {
     if (previewItem) {
         previewItem.classList.add('active');
     }
-    gameState.team = category;
+    setGameState({
+        team:category
+    });
     updateCategory(category);
 }
 
@@ -171,5 +173,7 @@ export function setGameMode(btn) {
     }
 
     // Set the current game mode in the game state
-    gameState.mode = gameMode;
+    setGameState({
+        mode:gameMode
+    });
 }

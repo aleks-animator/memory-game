@@ -9,25 +9,29 @@ import './css/typo.css';
 import './css/badges.css';
 import './css/buttons.css';
 
-import { gameState } from './js-modules/gameState.js';
+import { getGameState, setGameState } from './js-modules/gameState.js';
 import { gameImages, prepareImages } from './js-modules/images.js';
 import { addFlipBehavior } from './js-modules/flip.js';
-import { generateCards} from './js-modules/init.js';
+import { generateCards } from './js-modules/init.js';
 import { checkAndShowNamePopup, updatePlayerName } from './js-modules/namePopup.js';
-import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores} from './js-modules/scoreStorage.js'; 
+import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores } from './js-modules/scoreStorage.js';
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
 
 // Prepare images and set initial game state
-gameState.images = prepareImages(gameImages, 6);
+setGameState({
+    images: prepareImages(gameImages, 6)
+});
 
 // Set up board and timer display
-gameState.board = document.getElementById("game-board-front");
-gameState.boardFrame = document.getElementById("game-board");
-gameState.counterDisplay = document.getElementById("timer");
+setGameState({
+    board: document.getElementById("game-board-front"),
+    boardFrame: document.getElementById("game-board"),
+    counterDisplay: document.getElementById("timer")
+});
 
 // Generate cards and flip behavior
-generateCards(gameState.board, gameState.images);
-addFlipBehavior('#flip-button', gameState.boardFrame);
+generateCards(getGameState().board, getGameState().images);
+addFlipBehavior('#flip-button', getGameState().boardFrame);
 
 document.addEventListener("DOMContentLoaded", () => {
     checkAndShowNamePopup();
@@ -37,19 +41,31 @@ document.addEventListener("DOMContentLoaded", () => {
     loadGlobalScores();  // Load Firebase global scores
 });
 
-document.getElementById('flip-button').addEventListener('click', function() {
+document.getElementById('flip-button').addEventListener('click', function () {
     startScoreProgress();
-    if (gameState.timer) {
-        clearInterval(gameState.timer);
+    const { timer } = getGameState();
+    if (timer) {
+        clearInterval(timer);
     }
     startCounter();
 });
 
 function startCounter() {
-    gameState.startTime = performance.now(); // Start tracking exact time
+    const startTime = performance.now(); // Start tracking exact time
+    setGameState({ startTime });
+
     toggleTimerVisibility(true);
-    gameState.timer = setInterval(() => {
-        const elapsed = performance.now() - gameState.startTime; // Elapsed time in ms
+
+    // Start the timer and store its ID in the state
+    const timer = setInterval(() => {
+        const { startTime, counterDisplay } = getGameState();
+
+        if (!startTime || !counterDisplay) {
+            clearInterval(timer); // Stop the timer if startTime or counterDisplay is missing
+            return;
+        }
+
+        const elapsed = performance.now() - startTime; // Elapsed time in ms
         const seconds = Math.floor(elapsed / 1000); // Total seconds
         const milliseconds = Math.floor((elapsed % 1000) / 10); // Milliseconds (0-99)
 
@@ -58,6 +74,8 @@ function startCounter() {
         const formattedMilliseconds = String(milliseconds).padStart(2, '0');
 
         // Update the display with the formatted time
-        gameState.counterDisplay.textContent = `${formattedSeconds}:${formattedMilliseconds}`;
+        counterDisplay.textContent = `${formattedSeconds}:${formattedMilliseconds}`;
     }, 100); // Update every 100ms for smoother display
+
+    setGameState({ timer });
 }

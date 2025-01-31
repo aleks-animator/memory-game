@@ -1,5 +1,5 @@
 import { assignRandomColors, addCardAnimations } from './visual.js';
-import { gameState, resetGameState } from './gameState.js';
+import { getGameState, setGameState, resetGameState } from './gameState.js';
 import { prepareImages, gameImages } from './images.js';
 import { toggleTimerVisibility } from './gameProgress.js'; // Ensure timer visibility toggle is imported
 import { saveGameResult, saveGameResultToFirestore, showBestResultsUi, loadGlobalScores } from './scoreStorage.js';
@@ -45,24 +45,29 @@ function preloadImage(imgSrc) {
 }
 
 export function revealCard(card) {
+    const gameState = getGameState();
+
     if (!canRevealCard(card)) return; // Check if the card can be revealed
 
     card.classList.remove("hidden");
     card.classList.add("revealed");
     card.style.backgroundImage = `url("${card.dataset.image}")`;
-    gameState.revealedCards.push(card);
+
+    // Update revealedCards in the state
+    const updatedRevealedCards = [...gameState.revealedCards, card];
+    setGameState({ revealedCards: updatedRevealedCards });
 
     // Handle focus mode logic if the mode is active
     if (gameState.mode === 'focus-mode') {
         handleFocusMode(card); // Track card reveals and add CSS classes
 
         // If two cards are revealed, check for a mismatch involving a second-revealed card
-        if (gameState.revealedCards.length === 2) {
-            const [first, second] = gameState.revealedCards;
+        if (updatedRevealedCards.length === 2) {
+            const [first, second] = updatedRevealedCards;
 
             // If there's a mismatch involving a second-revealed card, end the game
             if (checkForDefeat(first, second)) {
-                gameState.isDefeat = true; // Mark the game as lost
+                setGameState({ isDefeat: true }); // Mark the game as lost
                 endGame();
 
                 resetRevealClasses(first);
@@ -74,22 +79,24 @@ export function revealCard(card) {
     }
 
     // Handle card matching logic
-    if (gameState.revealedCards.length === 2) {
+    if (updatedRevealedCards.length === 2) {
         handleCardMatch();
     }
 }
 
 // Function to check if the card can be revealed
 function canRevealCard(card) {
+    const { revealedCards } = getGameState();
     return !(
         card.classList.contains("revealed") ||
         card.classList.contains("matched") ||
-        gameState.revealedCards.length === 2
+        revealedCards.length === 2
     );
 }
 
 function handleCardMatch() {
-    const [first, second] = gameState.revealedCards;
+    const { revealedCards } = getGameState();
+    const [first, second] = revealedCards;
     const isMatch = first.dataset.id === second.dataset.id;
 
     if (isMatch) {
@@ -100,18 +107,24 @@ function handleCardMatch() {
 }
 
 function handleMatchedCards(first, second) {
+    const { matchedPairs, images, mode } = getGameState();
+
     first.classList.add("matched");
     second.classList.add("matched");
-    gameState.matchedPairs++;
-    gameState.revealedCards = [];
+
+    // Update matchedPairs and reset revealedCards
+    setGameState({
+        matchedPairs: matchedPairs + 1,
+        revealedCards: []
+    });
 
     // Reset reveal classes for matched cards in focus mode
-    if (gameState.mode === 'focus-mode') {
+    if (mode === 'focus-mode') {
         resetRevealClasses(first);
         resetRevealClasses(second);
     }
 
-    if (gameState.matchedPairs === gameState.images.length / 2) {
+    if (matchedPairs + 1 === images.length / 2) {
         endGame();
     }
 }
@@ -125,16 +138,18 @@ function resetUnmatchedCards(first, second) {
         first.style.backgroundImage = ''; // Reset background (using CSS placeholder)
         second.style.backgroundImage = ''; // Reset background (using CSS placeholder)
 
-        gameState.revealedCards = [];
+        // Reset revealedCards in the state
+        setGameState({ revealedCards: [] });
     }, 1000);
 }
 
 function endGame() {
-    clearInterval(gameState.timer);
-    const timeTaken = Math.floor(performance.now() - gameState.startTime); // Exact time in ms
+    const { isDefeat, startTime, timer } = getGameState();
+    clearInterval(timer);
+    const timeTaken = Math.floor(performance.now() - startTime); // Exact time in ms
 
     // Only save the score if the game was not lost
-    if (!gameState.isDefeat) {
+    if (!isDefeat) {
         const playerName = getPlayerName();
         saveGameResult(playerName, timeTaken);
         saveGameResultToFirestore(playerName, timeTaken);
@@ -143,7 +158,7 @@ function endGame() {
 
     // Show appropriate message
     setTimeout(() => {
-        if (gameState.isDefeat) {
+        if (isDefeat) {
             alert('Game Over: You lost!');
         } else {
             alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
@@ -158,6 +173,7 @@ function endGame() {
 }
 
 export function resetGame() {
+    const { mode, board, images } = getGameState();
     const boardElement = document.getElementById("game-board");
     const frontBoard = document.getElementById("game-board-front");
     const backBoard = document.getElementById("game-board-back");
@@ -168,18 +184,29 @@ export function resetGame() {
         flipBoard(boardElement, frontBoard, backBoard, button);
     }
 
-    resetGameState();
-    gameState.images = prepareImages(gameImages, 6);
-    generateCards(gameState.board, gameState.images);
-    gameState.counterDisplay.textContent = "00:00";
+    resetGameState(); // Reset all game state values
+
+    // Ensure the timer stops before starting a new one
+    setGameState({
+        images: prepareImages(gameImages, 6)
+    });
+
+    generateCards(board, images);
 
     // Reset focus mode state
-    if (gameState.mode === 'focus-mode') {
+    if (mode === 'focus-mode') {
         resetFocusMode();
+    }
+
+    // Reset the timer display
+    const counterDisplay = document.getElementById("timer");
+    if (counterDisplay) {
+        counterDisplay.textContent = "00:00"; // Properly reset the timer UI
     }
 
     toggleTimerVisibility(false);
 }
+
 
 // Function to set event listeners for game categories
 function setupCategoryListeners(categories) {

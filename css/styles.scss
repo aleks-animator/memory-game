@@ -1,62 +1,57 @@
 #game-board {
     display: flex;
     margin-top: 20px;
-    perspective: 1000px; /* Adjust for more/less depth */
+    perspective: 1000px; // Adjust for more/less depth
     padding: 15px;
     background: #d0e3f7;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s;
-    transform-origin: center; /* Rotate around the middle */
-}
-
-#game-board.rotate-mode {
-    background: #f7e3d0;
-}
-
-#game-board.switch-row-mode{
-    background: #d0f7d0;
-}
-
-#game-board.focus-mode{
-    background: #f7d0d0;
-}
-
-/* Flip effect for the game board */
-#game-board.flip {
-    transform: rotateY(180deg);
-    transition: transform 0.8s ease-in-out;
-}
-
-#game-board-back {
+    transform-origin: center; // Rotate around the middle
+  
+    &.rotate-mode {
+      background: #f7e3d0;
+  
+      &.flip {
+        border-radius: 50%;
+        transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s ease 0.5s;
+      }
+  
+      #game-board-front {
+        perspective: 1000px; // Adds depth for 3D effect
+        transform-origin: center; // Rotate around the center
+        animation: spinWheel 45s linear infinite;
+        padding: 146px 90px;
+  
+        .card {
+          width: 140px;
+          height: 140px;
+        }
+      }
+    }
+  
+    &.switch-row-mode {
+      background: #d0f7d0;
+    }
+  
+    &.focus-mode {
+      background: #f7d0d0;
+    }
+  
+    &.flip {
+      transform: rotateY(180deg);
+      transition: transform 0.8s ease-in-out;
+    }
+  }
+  
+  #game-board-back {
     width: 840px;
-    flex-direction: column;
     display: flex;
+    flex-direction: column;
     text-align: center;
-}
-
-
-
-/* mode rotate */
-
-#game-board.rotate-mode.flip {
-    border-radius: 50%;
-    transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s ease 0.5s;
-}
-
-#game-board.rotate-mode #game-board-front {
-    perspective: 1000px; /* Adds depth for 3D effect */
-    transform-origin: center; /* Rotate around the center */
-    animation: spinWheel 45s linear infinite;
-    padding: 146px 90px;
-}
-
-#game-board.rotate-mode #game-board-front .card {
-    width: 140px;
-    height: 140px;
-}
-
-#timer {
+  }
+  
+  #timer {
     font-family: 'Digital-7', monospace;
     font-size: 40px;
     padding: 10px;
@@ -66,17 +61,17 @@
     position: fixed;
     top: -100px;
     left: 50%;
-    translate: -50% 0;
+    transform: translateX(-50%);
     width: 300px;
     text-align: center;
-    transition: top 0.5s ease-in-out
-}
-
-#timer.shown {
-    top: 10px;
-}
-
-.player-panel {
+    transition: top 0.5s ease-in-out;
+  
+    &.shown {
+      top: 10px;
+    }
+  }
+  
+  .player-panel {
     position: fixed;
     top: 20px;
     right: 20px;
@@ -86,22 +81,22 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-}
-
-.player-panel__profile {
-    margin-bottom: 10px;
-    display: flex;
-}
-
-.player-panel .player-panel__name {
-    word-break: break-word;
-    max-width: 95px;
-    padding-left: 10px;
-    display: inline-flex;
-    align-items: center;
-}
-
-#chart-container {
+  
+    &__profile {
+      margin-bottom: 10px;
+      display: flex;
+    }
+  
+    &__name {
+      word-break: break-word;
+      max-width: 95px;
+      padding-left: 10px;
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+  
+  #chart-container {
     display: flex;
     justify-content: space-around;
     align-items: flex-end;
@@ -110,30 +105,30 @@
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#chart-container .bar {
-    width: 60px;
-    background-color: #007bff;
-    margin: 0 10px;
-    text-align: center;
-    color: white;
-    font-weight: bold;
-    border-radius: 5px 5px 0 0;
-    transition: height 0.3s ease;
-}
-
-#chart-container .bar span {
-    display: block;
-    margin-top: 10px;
-}
-
-
-@keyframes spinWheel {
+  
+    .bar {
+      width: 60px;
+      background-color: #007bff;
+      margin: 0 10px;
+      text-align: center;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px 5px 0 0;
+      transition: height 0.3s ease;
+  
+      span {
+        display: block;
+        margin-top: 10px;
+      }
+    }
+  }
+  
+  @keyframes spinWheel {
     from {
-        transform: rotateZ(0deg);
+      transform: rotateZ(0deg);
     }
     to {
-        transform: rotateZ(360deg);
+      transform: rotateZ(360deg);
     }
-}
+  }
+  

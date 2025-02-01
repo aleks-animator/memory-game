@@ -1,0 +1,54 @@
+.pill-button {
+    background-color: #001861;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 50px; /* Rounded pill */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.pill-button:hover {
+    background-color: #0056d6;
+}
+
+
+.pill-button.pill-button--green {
+    background: #28a745;
+}
+
+.pill-button.pill-button--green:hover {
+    background: #4a9a74;
+}
+
+
+
+.pill-button--panel-switch {
+    margin: 20px auto;
+    z-index: 5;
+}
+
+.pill-button--active {
+    background-color: #FF7F32;
+}
+
+.pill-button--change-name {
+
+}
+
+.pill-button--show-scores {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 7;
+}
+
+.preview-images .pill-button {
+    margin-top: 290px;
+}
+
+.player-panel .pill-button {
+    font-size: 12px;
+}

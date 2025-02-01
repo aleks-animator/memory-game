@@ -1,0 +1,24 @@
+// variables.scss
+
+// Colors
+$primary-color: #001861;
+$secondary-color: #0056d6;
+$accent-color: #FF7F32;
+$background-color: #d0e3f7;
+$background-alt-color: #f7e3d0;
+$background-success-color: #d0f7d0;
+$background-error-color: #f7d0d0;
+$text-color: #333;
+$white: #fff;
+$black: #000;
+
+// Gradients
+$cats-gradient: linear-gradient(300deg, #f89ba5, #f7bcbc, #f77280);
+$dogs-gradient: linear-gradient(300deg, #4a9a74, #8ed4b3, #5cb88c);
+$birds-gradient: linear-gradient(300deg, #ffb347, #ffcc70, #e07b39);
+$seaanimals-gradient: linear-gradient(300deg, #1a5f9e, #a7d8f0, #187bcd);
+
+// Fonts
+$font-primary: 'Work Sans', serif;
+$font-secondary: 'Digital-7', monospace;
+$font-tertiary: 'WickedMouse', sans-serif;

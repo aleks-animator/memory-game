@@ -1,0 +1,97 @@
+
+#game-board-front {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-rows: repeat(3, 1fr);   /* 3 rows */
+    gap: 20px;
+    display: none;
+    transform: rotateY(180deg);
+}
+
+.card {
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: lightgray;
+    border: 2px solid #555;
+    cursor: pointer;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease, background-color 0.3s ease, top 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Glow effect */
+    &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 10px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+    &.second-reveal {
+    
+        &::before {
+            content: "Last Chance!!";
+            padding-top: 3px;
+            background: maroon;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 24px;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+        }
+    }
+}
+
+.cats-layout {
+    .card {
+        background-image: url(../images/block-bg.svg);
+    }
+}
+
+.dogs-layout {
+    .card {
+        background-image: url(../images/block-bg-dog.svg);
+    }
+}
+
+.birds-layout {
+    .card {
+        background-image: url(../images/block-bg-bird.svg);
+    }
+}
+
+.seaanimals-layout {
+    .card {
+        background-image: url(../images/block-bg-sea.svg);
+    }
+}
+
+
+.card.revealed,
+.card.matched {
+    background-size: 100%;
+}
+
+
+
+.card:hover::after {
+    opacity: 1; /* Show glow on hover */
+}
+
+

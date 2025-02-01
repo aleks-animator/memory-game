@@ -6,6 +6,7 @@
     height: 100%;
     background: rgba(0, 0, 0, 0.7);
     display: none;
+    z-index: 10;
 }
 
 .popup {
@@ -19,6 +20,7 @@
     border-radius: 10px;
     text-align: center;
     display: none;
+    z-index: 11;
 }
 
 .popup h2 {
@@ -32,20 +34,6 @@
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
-.popup button {
-    padding: 10px 20px;
-    border: none;
-    background: #28a745;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.popup button:hover {
-    background: #218838;
-}
-
 
 #leaderboard {
     margin: 0;

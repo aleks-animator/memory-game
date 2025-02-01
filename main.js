@@ -1,13 +1,5 @@
 // Importing CSS files
-import './css/styles.css';
-import './css/background.css';
-import './css/popup.css';
-import './css/progress.css';
-import './css/front.css';
-import './css/gameBoard.css';
-import './css/typo.css';
-import './css/badges.css';
-import './css/buttons.css';
+import './css/main.scss';
 
 import { getGameState, setGameState } from './js-modules/gameState.js';
 import { gameImages, prepareImages } from './js-modules/images.js';
@@ -16,7 +8,7 @@ import { generateCards } from './js-modules/init.js';
 import { checkAndShowNamePopup, updatePlayerName } from './js-modules/namePopup.js';
 import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores } from './js-modules/scoreStorage.js';
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
-
+import { initChart } from './js-modules/chart.js';
 // Prepare images and set initial game state
 setGameState({
     images: prepareImages(gameImages, 6)
@@ -33,12 +25,13 @@ setGameState({
 generateCards(getGameState().board, getGameState().images);
 addFlipBehavior('#flip-button', getGameState().boardFrame);
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     checkAndShowNamePopup();
     updatePlayerName();
-    showBestResultsUi();  // Show local best results on load
+    showBestResultsUi();  
     setupLeaderboardToggle();
-    loadGlobalScores();  // Load Firebase global scores
+    await loadGlobalScores(); 
+    initChart(); 
 });
 
 document.getElementById('flip-button').addEventListener('click', function () {

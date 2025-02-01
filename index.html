@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="cats-layout">
     <h1>Glasić™ Game</h1>
@@ -75,13 +76,15 @@
     <div id="name-popup" class="popup">
         <h2>Enter your name</h2>
         <input type="text" id="player-name" placeholder="Your Name">
-        <button id="save-name-btn" class="pill-button">Save</button>
+        <button id="save-name-btn" class="pill-button pill-button--green">Save</button>
     </div>
 
     <div id="leaderboard">
         <div class="leaderboard-section">
             <h3>Your 10 Scores</h3>
             <ul id="score-list"></ul>
+            <h3>Team Ranking Chart</h1>
+            <div id="chart-container"></div>
         </div>
         <div class="leaderboard-section">
         <div id="score-list-global"></div>

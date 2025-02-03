@@ -176,5 +176,4 @@ export function setGameMode(btn) {
     setGameState({
         mode:gameMode
     });
-    console.log()
 }

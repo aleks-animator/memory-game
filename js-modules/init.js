@@ -173,7 +173,7 @@ function endGame() {
 }
 
 export function resetGame() {
-    const { mode, board, images } = getGameState();
+    const { mode, board } = getGameState(); // Destructure only what you need
     const boardElement = document.getElementById("game-board");
     const frontBoard = document.getElementById("game-board-front");
     const backBoard = document.getElementById("game-board-back");
@@ -186,12 +186,12 @@ export function resetGame() {
 
     resetGameState(); // Reset all game state values
 
-    // Ensure the timer stops before starting a new one
-    setGameState({
-        images: prepareImages(gameImages, 6)
-    });
+    // Prepare new images and update the state
+    const preparedImages = prepareImages(gameImages, 6);
+    setGameState({ images: preparedImages }); // Update the state synchronously
 
-    generateCards(board, images);
+    // Use the updated images from the state
+    generateCards(board, getGameState().images);
 
     // Reset focus mode state
     if (mode === 'focus-mode') {
@@ -203,7 +203,6 @@ export function resetGame() {
     if (counterDisplay) {
         counterDisplay.textContent = "00:00"; // Properly reset the timer UI
     }
-
     toggleTimerVisibility(false);
 }
 

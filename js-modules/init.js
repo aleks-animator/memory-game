@@ -1,6 +1,6 @@
 import { assignRandomColors, addCardAnimations } from './visual.js';
 import { getGameState, setGameState, resetGameState } from './gameState.js';
-import { prepareImages, gameImages } from './images.js';
+import { prepareImages, getGameImages } from './images.js';
 import { toggleTimerVisibility } from './gameProgress.js'; // Ensure timer visibility toggle is imported
 import { saveGameResult, saveGameResultToFirestore, showBestResultsUi, loadGlobalScores } from './scoreStorage.js';
 import { getPlayerName } from './namePopup.js';
@@ -188,7 +188,7 @@ export function resetGame() {
 
     // Ensure the timer stops before starting a new one
     setGameState({
-        images: prepareImages(gameImages, 6)
+        images: prepareImages(getGameImages(), 6) // Use getGameImages() here
     });
 
     generateCards(board, images);

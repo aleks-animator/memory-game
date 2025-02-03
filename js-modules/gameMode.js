@@ -1,8 +1,10 @@
-import { updateCategory } from './images.js';
-import { setGameState } from './gameState.js';
+import { prepareImages } from './images.js';
+import { setGameState, getGameState } from './gameState.js';
+
 // ------------------------------
 // Game Category Selection
 // ------------------------------
+
 export function setGameCategory(btn) {
     const category = btn.id.replace('-btn', '');
 
@@ -27,10 +29,16 @@ export function setGameCategory(btn) {
     if (previewItem) {
         previewItem.classList.add('active');
     }
+
+    // **Update the game state BEFORE preparing images**
     setGameState({
-        team:category
+        currentCategory: category
     });
-    updateCategory(category);
+
+    // Ensure the timer stops before starting a new one
+    setGameState({
+        images: prepareImages(6) // Now always uses gameState.currentCategory
+    });
 }
 
 // ------------------------------

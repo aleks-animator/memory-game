@@ -71,16 +71,27 @@ function renderRankList(teamRankings) {
         return;
     }
 
+    // Create and append heading
+    const heading = document.createElement('h2');
+    heading.textContent = 'Team Rank';
+
     // Create and append ranking list
-    const rankList = document.createElement('ol'); // Ordered list
+    const rankList = document.createElement('ul'); // Unordered list
     teamRankings.forEach(team => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${team.team} - ${team.totalPoints} points`;
+        listItem.innerHTML = `
+            <span class="badge badge--smaller badge--${team.team}">
+                <div class="rounded"></div>
+            </span>
+            ${team.totalPoints} points
+        `;
         rankList.appendChild(listItem);
     });
 
-    rankContainer.appendChild(rankList);
+    rankContainer.appendChild(heading); // Add heading first
+    rankContainer.appendChild(rankList); // Then add the list
 }
+
 
 // Main function to initialize the chart and ranking list
 export function initChart() {
@@ -91,3 +102,4 @@ export function initChart() {
     renderChart(teamRankings);
     renderRankList(teamRankings);
 }
+

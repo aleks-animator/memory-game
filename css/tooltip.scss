@@ -7,7 +7,6 @@
 
 .tooltip-text {
     font-weight: bold;
-    text-decoration: underline;
     cursor: pointer;
 }
 
@@ -33,4 +32,12 @@
 .tooltip:hover .tooltip-content {
     visibility: visible;
     opacity: 1;
+}
+
+.team-rank {
+    .tooltip {
+        position: absolute;
+        top: 12px;
+        right: 10px;
+    }
 }

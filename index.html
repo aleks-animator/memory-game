@@ -11,7 +11,7 @@
 </head>
 <body class="cats-layout">
     <h1>Glasić™ Game</h1>
-    <div id="game-board">
+    <div id="game-board" class="normal-mode">
         <div id="game-board-front"></div>
         <div id="game-board-back">
 
@@ -60,10 +60,11 @@
                         <button class="pill-button" id="switch-row-mode">Switch Row</button>
                     </div>
                     <div class="game-modes__description">
-                        <p class="game-modes__description-item game-modes__description-item--show" rel="normal-mode">Find pairs among hidden images</p>
+                        <p class="game-modes__description-item game-modes__description-item--show" rel="normal-mode">Classic memory game mode. Find pairs among hidden images</p>
                         <p class="game-modes__description-item"  rel="focus-mode">In Focus Mode, you only get 2 chances to open the same card. Fail to pair on the second attempt, and it's game over</p>
-                        <p class="game-modes__description-item"  rel="rotate-mode">Whole board is rotating</p>
-                        <p class="game-modes__description-item"  rel="switch-row-mode">Rows are swapping occasionally</p>
+                        <p class="game-modes__description-item"  rel="rotate-mode">Don't get dizzy! Whole board is rotating</p>
+                        <p class="game-modes__description-item"  rel="switch-row-mode">In this mode, whole rows of images are swapping occasionally.</p>
+                        <div class="game-modes__description-decor"></div>
                     </div>
                 </div>
                 <div class="team-rank">
@@ -88,7 +89,7 @@
         <div class="leaderboard-section">
             <h3>Your 10 Scores</h3>
             <ul id="score-list"></ul>
-            <h3>Team Ranking Chart</h1>
+            <h3>Team Ranking Chart</h3>
             <div id="chart-container"></div>
         </div>
         <div class="leaderboard-section">

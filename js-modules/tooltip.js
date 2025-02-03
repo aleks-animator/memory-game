@@ -10,7 +10,7 @@ export function createRankingTooltip(targetSelector) {
 
     tooltipContainer.innerHTML = `
         <div class="tooltip">
-            <span class="tooltip-text">ℹ️ Ranking Point Rules</span>
+            <span class="tooltip-text">ℹ️</span>
             <div class="tooltip-content">
                 <p><strong>Rank 1</strong> in each mode - <strong>10 points</strong></p>
                 <p><strong>Rank 2</strong> - <strong>9 points</strong></p>

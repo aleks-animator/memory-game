@@ -10,7 +10,6 @@
     transform-origin: center; // Rotate around the middle
   
     &.rotate-mode {
-      background: #f7e3d0;
   
       &.flip {
         border-radius: 50%;
@@ -29,15 +28,7 @@
         }
       }
     }
-  
-    &.switch-row-mode {
-      background: #d0f7d0;
-    }
-  
-    &.focus-mode {
-      background: #f7d0d0;
-    }
-  
+
     &.flip {
       transform: rotateY(180deg);
       transition: transform 0.8s ease-in-out;

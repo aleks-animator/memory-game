@@ -1,9 +1,9 @@
 .preview-images {
-    margin-top:10px;
+    margin-top: 10px;
     display: flex;
     gap: 20px;
-    margin: 0 30px 20px 30px;
-    padding:25px 0 35px 0;
+    margin: 0 30px 0 30px;
+    padding:25px 0 10px 0;
     
     .image-wrapper {
         transform-origin: center;
@@ -101,6 +101,7 @@
 }
 .game-board-back__bottom {
     display: flex;
+    justify-content: space-between;
 
 }
 
@@ -112,19 +113,78 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 50%;
-    .game-modes__description {
+    width: 60%;
+    &__description {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       p {
         display: none;
-        margin-top: 15px;
-  
+        width: 59%;
+
         &.game-modes__description-item--show {
-          display: block;
+          display: flex;
         }
       }
     }
-  }
+    &__description-decor {
+        width: 39%;
+        min-height: 180px;
+        background-size: 80%;
+        opacity: 0.1;
+    }
+}
 
+#game-board {
+    &.normal-mode {
+        .game-modes__description-decor {
+            background: url("../images/front/description-normal-mode.png") no-repeat center center;
+            background-size: 80%;
+
+        }
+    }
+
+    &.focus-mode {
+        .game-modes__description-decor {
+            background: url("../images/front/description-focus-mode.png") no-repeat center center;
+            background-size: 80%;
+
+        }
+    }
+    &.rotate-mode {
+        .game-modes__description-decor {
+            background: url("../images/front/description-rotate-mode.png") no-repeat center center;
+            background-size: 80%;
+        }
+    }
+    &.switch-row-mode {
+        .game-modes__description-decor {
+            background: url("../images/front/description-swich-row-mode.png") no-repeat center center;
+            background-size: 80%;
+        }
+    }
+
+}
 .team-rank {
-    width: 50%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: calc(35% - 30px);
+    text-align: left;
+    padding: 15px;
+    position: relative;
+    font-size: 24px;
+    h2 {
+        text-align: center;
+    }
+    ul  {
+        margin: 0;
+        padding: 0;
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            gap: 1rem;
+            margin-bottom: 15px;
+        }
+    }
 }

@@ -9,7 +9,7 @@ let gameState = {
     boardFrame: null,
     mode: "normal-mode",
     counterDisplay: null,
-    currentCategory: null,
+    currentCategory: 'cats',
     isDefeat: false,
     isFlipped: false,
     team: 'cats',

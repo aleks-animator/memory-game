@@ -2,7 +2,7 @@
 import './css/main.scss';
 
 import { getGameState, setGameState } from './js-modules/gameState.js';
-import { getGameImages, prepareImages } from './js-modules/images.js';
+import { gameImages, prepareImages } from './js-modules/images.js';
 import { addFlipBehavior } from './js-modules/flip.js';
 import { generateCards } from './js-modules/init.js';
 import { checkAndShowNamePopup, updatePlayerName } from './js-modules/namePopup.js';
@@ -13,7 +13,7 @@ import { createRankingTooltip } from './js-modules/tooltip.js';
 
 // Prepare images and set initial game state
 setGameState({
-    images: prepareImages(getGameImages(), 6)
+    images: prepareImages(gameImages, 6)
 });
 
 // Set up board and timer display

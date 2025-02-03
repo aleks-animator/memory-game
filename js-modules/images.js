@@ -1,21 +1,15 @@
-import { getGameState } from './gameState.js';
-
-let currentCategory = 'cats'; // Standardkategorie
+// images.js
+let currentCategory = 'cats'; // Default category is 'cats'
 
 export function updateCategory(category) {
-    currentCategory = category; // Kategorie aktualisieren
+    currentCategory = category; // Update the category
+    gameImages = Array.from({ length: 21 }, (_, i) => `../images/${currentCategory}/${i + 1}.jpg`); // Update the image path
 }
 
-export function getGameImages() {
-    return Array.from({ length: 21 }, (_, i) => `../images/${currentCategory}/${i + 1}.jpg`);
-}
+export let gameImages = Array.from({ length: 21 }, (_, i) => `../images/${currentCategory}/${i + 1}.jpg`);
 
-
-export function prepareImages(count = 6) {
-    const category = getGameState().currentCategory || 'cats'; // Use gameState for category
-    const images = Array.from({ length: 21 }, (_, i) => `../images/${category}/${i + 1}.jpg`);
-
-    return shuffleImageArray(images) // Shuffle the array
+export function prepareImages(shapes, count = 6) {
+    return shuffleImageArray([...shapes]) // Shuffle the array
         .slice(0, count) // Select the first `count` shapes
         .map((img, id) => ({ img, id })) // Assign an ID to each shape
         .flatMap(pair => [pair, pair]) // Duplicate each shape
@@ -25,7 +19,7 @@ export function prepareImages(count = 6) {
 export function shuffleImageArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Elemente tauschen
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
     }
     return array;
 }

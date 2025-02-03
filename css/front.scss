@@ -99,16 +99,20 @@
         left:0;
     }
 }
+.game-board-back__bottom {
+    display: flex;
+
+}
 
 
 .game-modes {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    padding: 20px;
+    padding: 20px 10px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-  
+    width: 50%;
     .game-modes__description {
       p {
         display: none;
@@ -120,3 +124,7 @@
       }
     }
   }
+
+.team-rank {
+    width: 50%;
+}

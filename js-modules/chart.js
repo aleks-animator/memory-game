@@ -57,11 +57,37 @@ function renderChart(teamRankings) {
     });
 }
 
-// Main function to initialize the chart
+// Function to render team ranking list
+function renderRankList(teamRankings) {
+    const rankContainer = document.querySelector('.team-rank');
+    if (!rankContainer) {
+        console.error("Ranking container not found!");
+        return;
+    }
+    rankContainer.innerHTML = ''; // Clear previous rankings
+
+    if (teamRankings.length === 0) {
+        rankContainer.innerHTML = '<p>No ranking data available.</p>'; // Fallback message
+        return;
+    }
+
+    // Create and append ranking list
+    const rankList = document.createElement('ol'); // Ordered list
+    teamRankings.forEach(team => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${team.team} - ${team.totalPoints} points`;
+        rankList.appendChild(listItem);
+    });
+
+    rankContainer.appendChild(rankList);
+}
+
+// Main function to initialize the chart and ranking list
 export function initChart() {
     const gameState = getGameState();
     console.log("Game State:", gameState); // Debugging: Log gameState
     const teamRankings = calculateTeamRankings(gameState.scores);
     console.log("Team Rankings:", teamRankings); // Debugging: Log team rankings
     renderChart(teamRankings);
+    renderRankList(teamRankings);
 }

@@ -145,7 +145,7 @@ export async function loadGlobalScores() {
             });
 
             const listItem = document.createElement('li');
-            listItem.textContent = `${index + 1}. ${score.player} (Team: ${score.team}): ${formattedTime}s`;
+            listItem.innerHTML = `<span class="leaderboard-rank">${index + 1}</span> <span class="badge badge--smaller badge--${score.team}"><div class="rounded"></div></span> ${score.player}: ${formattedTime} seconds`;
 
             list.appendChild(listItem);
         });

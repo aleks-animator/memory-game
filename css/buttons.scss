@@ -36,7 +36,7 @@
 
     &--show-scores {
         position: fixed;
-        top: 20px;
+        top: 10px;
         left: 20px;
         z-index: 7;
     }
@@ -52,5 +52,6 @@
 .player-panel {
     .pill-button {
         font-size: 12px;
+        padding: 5px;
     }
 }

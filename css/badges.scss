@@ -3,8 +3,8 @@
 @use 'variables' as v;
 
 .badge {
-    width: 30px;
-    height: 30px;
+    width: 66px;
+    height: 66px;
     border-radius: 25%;
     display: inline-flex;
     top: 0;
@@ -14,34 +14,49 @@
 
     &--bg {
         .rounded {
-            width: 22px;
-            height: 22px;
+            width: 60px;
+            height: 60px;
             background: v.$white;
-            position: absolute;
-            margin: 4px 4px auto;
+            margin: 2px 3px auto;
             z-index: 10;
-            border-radius: 30%;
+            border-radius: 25%;
             box-shadow: 4px 4px 4px 2px rgba(v.$black, 0.23);
         }
     }
-
-    .cats-layout &--bg .rounded {
-        background: v.$white url("../images/cat-pattern.svg") no-repeat center center;
-        background-size: 140%;
+    &.badge--smaller {
+        width: 44px;
+        height: 44px;
+        .rounded {
+            width: 38px;
+            height: 38px;
+            background: v.$white;
+            margin: 2px 3px auto;
+            z-index: 10;
+            border-radius: 25%;
+            box-shadow: 4px 4px 4px 2px rgba(v.$black, 0.23);
+        }
+    }
+    .cats-layout &--bg .rounded,
+    &.badge--cats .rounded {
+        background: v.$white url("../images/avatar/cat.jpg") no-repeat center center;
+        background-size: 100%;
     }
 
-    .dogs-layout &--bg .rounded {
-        background: v.$white url("../images/dog-pattern.svg") no-repeat center center;
-        background-size: 140%;
+    .dogs-layout &--bg .rounded,
+    &.badge--dogs .rounded {
+        background: v.$white url("../images/avatar/dog.jpg") no-repeat center center;
+        background-size: 100%;
     }
 
-    .birds-layout &--bg .rounded {
-        background: v.$white url("../images/bird-pattern.svg") no-repeat center center;
-        background-size: 140%;
+    .birds-layout &--bg .rounded,
+    &.badge--birds .rounded {
+        background: v.$white url("../images/avatar/bird.jpg") no-repeat center center;
+        background-size: 100%;
     }
 
-    .seaanimals-layout &--bg .rounded {
-        background: v.$white url("../images/sea-pattern.svg") no-repeat center center;
-        background-size: 140%;
+    .seaanimals-layout &--bg .rounded,
+    &.badge--seaanimals .rounded {
+        background: v.$white url("../images/avatar/dolphin.jpg") no-repeat center center;
+        background-size: 100%;
     }
 }

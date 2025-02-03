@@ -9,6 +9,8 @@ import { checkAndShowNamePopup, updatePlayerName } from './js-modules/namePopup.
 import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores } from './js-modules/scoreStorage.js';
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
 import { initChart } from './js-modules/chart.js';
+import { createRankingTooltip } from './js-modules/tooltip.js';
+
 // Prepare images and set initial game state
 setGameState({
     images: prepareImages(gameImages, 6)
@@ -32,6 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     setupLeaderboardToggle();
     await loadGlobalScores(); 
     initChart(); 
+    createRankingTooltip(".team-rank"); 
 });
 
 document.getElementById('flip-button').addEventListener('click', function () {

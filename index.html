@@ -50,22 +50,27 @@
                     <button class="pill-button" id="seaanimals-btn">Choose</button>
                 </div>
             </div>
-            <h2>Game modes</h2>
-            <div class="game-modes">
-                <div class="game-modes__action">
-                    <button class="pill-button pill-button--active" id="normal-mode">Normal</button>
-                    <button class="pill-button" id="focus-mode">Focus</button>
-                    <button class="pill-button" id="rotate-mode">Rotate</button>
-                    <button class="pill-button" id="switch-row-mode">Switch Row</button>
+            <div class="game-board-back__bottom">
+                <div class="game-modes">
+                    <h2>Game modes</h2>
+                    <div class="game-modes__action">
+                        <button class="pill-button pill-button--active" id="normal-mode">Normal</button>
+                        <button class="pill-button" id="focus-mode">Focus</button>
+                        <button class="pill-button" id="rotate-mode">Rotate</button>
+                        <button class="pill-button" id="switch-row-mode">Switch Row</button>
+                    </div>
+                    <div class="game-modes__description">
+                        <p class="game-modes__description-item game-modes__description-item--show" rel="normal-mode">Find pairs among hidden images</p>
+                        <p class="game-modes__description-item"  rel="focus-mode">In Focus Mode, you only get 2 chances to open the same card. Fail to pair on the second attempt, and it's game over</p>
+                        <p class="game-modes__description-item"  rel="rotate-mode">Whole board is rotating</p>
+                        <p class="game-modes__description-item"  rel="switch-row-mode">Rows are swapping occasionally</p>
+                    </div>
                 </div>
-                <div class="game-modes__description">
-                    <p class="game-modes__description-item game-modes__description-item--show" rel="normal-mode">Find pairs among hidden images</p>
-                    <p class="game-modes__description-item"  rel="focus-mode">In Focus Mode, you only get 2 chances to open the same card. Fail to pair on the second attempt, and it's game over</p>
-                    <p class="game-modes__description-item"  rel="rotate-mode">Whole board is rotating</p>
-                    <p class="game-modes__description-item"  rel="switch-row-mode">Rows are swapping occasionally</p>
-
+                <div class="team-rank">
+                    <h2>Team Rank</h2>
                 </div>
             </div>
+       
         </div>
     </div>
     <button id="flip-button" class="pill-button pill-button--panel-switch">Start game</button>
@@ -93,15 +98,21 @@
 
     <div class="player-panel">
         <div class="player-panel__profile">
-            <span class="badge badge--bg">
-               <div class="rounded"></div>
-            </span>
-            <span class="player-panel__name"></span>
+            <div class="player-panel__profile-left">
+                <span class="badge badge--bg">
+                <div class="rounded"></div>
+                </span>
+            </div>
+            <div class="player-panel__profile-left">
+                <span class="player-panel__name"></span>
+                <button id="change-name-btn" class="pill-button">
+                    Change Name
+                </button>
+            </div>
+          
         </div>
-        <button id="change-name-btn" class="pill-button">
-            Change Name
-        </button>
-    </div>
+        </div>
+      
 
     <button class="pill-button pill-button--show-scores">Show leaderboard</button>
 
@@ -110,6 +121,7 @@
         <div id="bullet"></div>
         <div class="score-to-beat">Highscore</div>
     </div>
+
 
     <script type="module" src="bundle.js"></script>
 </body>

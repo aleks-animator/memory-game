@@ -1,3 +1,6 @@
+@use "sass:color";
+
+
 .overlay {
     position: fixed;
     top: 0;
@@ -64,6 +67,8 @@
   }
   
   .leaderboard-section {
+    height: 98vh;
+    overflow-x: scroll;
     margin: 0 20px;
     padding: 0 20px;
     width: calc(50% - 80px);
@@ -71,14 +76,25 @@
     border-radius: 10px;
   
     ul {
-      margin: 0;
+      margin: 1rem;
       padding: 0;
     }
   
     li {
-      font-size: 14px;
+      font-size: 16px;
+      border-radius: 10px;
       padding: 10px;
       list-style: none;
+      display: flex;
+      gap:15px;
+      align-items: center;
+      &:nth-child(odd) {
+        background-color: color.adjust(#afc7e0, $lightness: 4%);
+      }
+    }
+    .leaderboard-rank {
+      font-size: 30px;
+      width: 25px;
     }
   }
   

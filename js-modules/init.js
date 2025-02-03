@@ -24,7 +24,6 @@ export function generateCards(board, images) {
 
 // Function to create a single card
 function createCard(img, id) {
-    const image = preloadImage(img); // Preload the image
     const card = document.createElement("div");
     card.classList.add("card", "hidden");
 

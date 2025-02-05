@@ -1,13 +1,17 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const dotenv = require('dotenv');
+
+// Load environment variables from .env file
+dotenv.config();
 
 module.exports = {
     entry: './main.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
+        publicPath: process.env.PUBLIC_PATH || '/', // Use environment variable or fallback to '/'
     },
     module: {
         rules: [
@@ -21,11 +25,11 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.scss$/i, // Handle .scss files
+                test: /\.scss$/i,
                 use: [
-                    MiniCssExtractPlugin.loader, // Extract CSS into separate files
-                    'css-loader', // Translates CSS into CommonJS
-                    'sass-loader', // Compiles SCSS to CSS
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader',
                 ],
             },
             {
@@ -45,7 +49,7 @@ module.exports = {
             ],
         }),
         new MiniCssExtractPlugin({
-            filename: 'styles.css', // Output CSS file name
+            filename: 'styles.css',
         }),
     ],
     resolve: {
@@ -59,5 +63,5 @@ module.exports = {
         port: 9000,
         hot: true,
     },
-    mode: 'development',
+    mode: process.env.NODE_ENV || 'development', // Use environment variable or fallback to 'development'
 };

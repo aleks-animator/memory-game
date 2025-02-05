@@ -167,21 +167,24 @@ function endGame() {
     if (timeDifference !== null && timeDifference <= 0) {
         highlightMessage = `>New best time! Congratulations!`;
     } else if (timeDifference !== null) {
-        highlightMessage = `${(timeDifference / 1000).toFixed(3)} seconds to reach best time`;
+        if (timeDifference <= 3000) { // If within 3 seconds
+            highlightMessage = `You were just <strong>${(timeDifference / 1000).toFixed(3)} seconds away</strong> from setting a new best score!`;
+        } else {
+            highlightMessage = `Your time was <strong>${(timeDifference / 1000).toFixed(3)} seconds</strong> behind the best score.`;
+        }
     } else {
-        highlightMessage = `No best time recorded yet.`;
+        highlightMessage = `No best time recorded yet. Be the first to set a record!`;
     }
-
     // Show appropriate message
     setTimeout(() => {
         if (isDefeat) {
-            showPopup('Game Over: You lost!', false, () => {
+            showPopup('Game Over: You lost.', false, () => {
                 resetGame();
                 resetProgressBar();
             });
         } else {
             showPopup(
-                `Your Time: ${(timeTaken / 1000).toFixed(3)}s. ${highlightMessage}`,
+                `Your Time: <strong>${(timeTaken / 1000).toFixed(3)}s</strong>.<br><br>${highlightMessage}`,
                 false,
                 () => {
                     resetGame();

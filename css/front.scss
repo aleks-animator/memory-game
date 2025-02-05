@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 .preview-images {
     margin-top: 10px;
     display: flex;
@@ -77,7 +79,7 @@
     }
 
     &__team-name {
-        font-family: 'WickedMouse';
+        font-family: v.$font-tertiary;
         letter-spacing: 0.02rem;
         font-size: 20px;
         left: 50%;

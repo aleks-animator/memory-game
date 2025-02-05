@@ -12,7 +12,7 @@ export function showPopup(message, showInput = false, confirmCallback = null) {
 
     if (popup && overlay && popupMessage && nameInput && saveButton && confirmButton) {
         // Set the message and title
-        popupMessage.textContent = message;
+        popupMessage.innerHTML = message;
 
         // Show or hide the input field
         nameInput.style.display = showInput ? 'block' : 'none';
@@ -77,7 +77,7 @@ export function updatePlayerName() {
 // Add functionality for the "Change Name" button
 const changeNameButton = document.getElementById('change-name-btn');
 if (changeNameButton) {
-    changeNameButton.addEventListener('click', () => showPopup('Enter your new name:', true));
+    changeNameButton.addEventListener('click', () => showPopup('Enter your name:', true));
 }
 
 // Check if the player name is set, and show the popup if it's not

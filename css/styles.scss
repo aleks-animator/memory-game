@@ -1,9 +1,12 @@
+@use 'variables' as v;
+
+
 #game-board {
     display: flex;
     margin-top: 20px;
     perspective: 1000px; // Adjust for more/less depth
     padding: 15px;
-    background: #d0e3f7;
+    background: v.$background-color;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     transition: transform 0.8s ease-in-out, background 0.5s ease-in-out, border-radius 0.5s;
@@ -43,10 +46,10 @@
   }
   
   #timer {
-    font-family: 'Digital-7', monospace;
+    font-family: v.$font-secondary;
     font-size: 40px;
     padding: 10px;
-    background: #d0e3f7;
+    background: v.$background-color;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     position: fixed;

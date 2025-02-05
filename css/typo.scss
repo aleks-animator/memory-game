@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 @font-face {
     font-family: 'Digital-7';
     src: url('/fonts/digital-7-V7.ttf') format('truetype'),
@@ -18,13 +20,13 @@
 h1 {
     margin: 10px 0 0 0;
     font-size: 40px;
-    color: #001861;
+    color: v.$primary-color;
 }
 
 h2 {
     font-size: 20px;
     font-weight: bold;
-    color: #001861;
+    color: v.$primary-color;
     margin: 0 0 20px 0;
 }
 

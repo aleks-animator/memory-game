@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 #progress-container {
   position: fixed;
   bottom: -120px;
@@ -25,7 +27,7 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: #001861;
+    background-color: v.$accent-color;
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
@@ -40,7 +42,7 @@
 
 .score-to-beat {
   position: absolute;
-  background: #ff7f32;
+  background: v.$accent-color;
   color: white;
   bottom: 40px;
   right: 0;
@@ -62,7 +64,7 @@
     transform: translateX(-50%);
     border-width: 15px;
     border-style: solid;
-    border-color: #ff7f32 transparent transparent transparent;
+    border-color: v.$accent-color transparent transparent transparent;
     width: 0;
     height: 0;
   }

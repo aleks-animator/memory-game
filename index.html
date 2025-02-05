@@ -80,9 +80,12 @@
 
     <div id="overlay" class="overlay"></div>
     <div id="name-popup" class="popup">
-        <h2>Enter your name</h2>
+        <p id="popup-message"></p> <!-- Dynamic message -->
         <input type="text" id="player-name" placeholder="Your Name">
-        <button id="save-name-btn" class="pill-button pill-button--green">Save</button>
+        <div class="popup-buttons">
+            <button id="save-name-btn" class="pill-button pill-button--green">Save</button>
+            <button id="confirm-btn" class="pill-button pill-button--blue">OK</button>
+        </div>
     </div>
 
     <div id="leaderboard">

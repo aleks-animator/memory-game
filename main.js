@@ -1,4 +1,4 @@
-// Importing CSS files
+// main.js
 import './css/main.scss';
 
 import { getGameState, setGameState } from './js-modules/gameState.js';

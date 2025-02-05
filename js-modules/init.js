@@ -1,13 +1,13 @@
+// init.js
 import { assignRandomColors, addCardAnimations } from './visual.js';
 import { getGameState, setGameState, resetGameState } from './gameState.js';
 import { prepareImages, gameImages } from './images.js';
 import { toggleTimerVisibility } from './gameProgress.js'; // Ensure timer visibility toggle is imported
 import { saveGameResult, saveGameResultToFirestore, showBestResultsUi, loadGlobalScores } from './scoreStorage.js';
-import { getPlayerName } from './namePopup.js';
+import { getPlayerName, showPopup } from './namePopup.js';
 import { resetProgressBar } from './gameProgress.js';
 import { setGameCategory, setGameMode, handleFocusMode, checkForDefeat, resetFocusMode, resetRevealClasses } from "./gameMode";
 import { flipBoard } from './flip.js'; // Import the flipBoard function
-
 // Function to generate the cards and render them on the board
 export function generateCards(board, images) {
     board.innerHTML = ""; // Clear the board
@@ -143,7 +143,7 @@ function resetUnmatchedCards(first, second) {
 }
 
 function endGame() {
-    const { isDefeat, startTime, timer } = getGameState();
+    const { isDefeat, startTime, timer, mode, scores } = getGameState();
     clearInterval(timer);
     const timeTaken = Math.floor(performance.now() - startTime); // Exact time in ms
 
@@ -155,20 +155,42 @@ function endGame() {
         loadGlobalScores();
     }
 
+    // Get the best time for the current mode
+    const scoresForMode = scores[mode] || [];
+    const bestTime = scoresForMode.length > 0 ? Math.min(...scoresForMode.map(score => score.score)) : null;
+
+    // Calculate the difference between the player's time and the best time
+    const timeDifference = bestTime ? timeTaken - bestTime : null;
+
+    // Prepare the message for the highlight span
+    let highlightMessage;
+    if (timeDifference !== null && timeDifference <= 0) {
+        highlightMessage = `>New best time! Congratulations!`;
+    } else if (timeDifference !== null) {
+        highlightMessage = `${(timeDifference / 1000).toFixed(3)} seconds to reach best time`;
+    } else {
+        highlightMessage = `No best time recorded yet.`;
+    }
+
     // Show appropriate message
     setTimeout(() => {
         if (isDefeat) {
-            alert('Game Over: You lost!');
+            showPopup('Game Over: You lost!', false, () => {
+                resetGame();
+                resetProgressBar();
+            });
         } else {
-            alert(`Game Over: You Win! Time: ${(timeTaken / 1000).toFixed(3)}s`);
-            showBestResultsUi();
+            showPopup(
+                `Your Time: ${(timeTaken / 1000).toFixed(3)}s. ${highlightMessage}`,
+                false,
+                () => {
+                    resetGame();
+                    resetProgressBar();
+                    showBestResultsUi();
+                }
+            );
         }
     }, 500);
-
-    setTimeout(() => {
-        resetGame();
-        resetProgressBar(); // Reset progress bar when the game ends
-    }, 1000);
 }
 
 export function resetGame() {

@@ -21,6 +21,6 @@
   },
   "scripts": {
     "start": "webpack serve --config webpack.config.js",
-    "build": "cross-env PUBLIC_PATH=/memory-game/ webpack --config webpack.config.js"
+    "build": "cross-env NODE_ENV=production PUBLIC_PATH=/memory-game/ webpack --config webpack.config.js"
   }
 }

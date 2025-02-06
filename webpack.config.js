@@ -1,17 +1,16 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const dotenv = require('dotenv');
 
-// Load environment variables from .env file
-dotenv.config();
+// Determine if we're in production mode
+const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
     entry: './main.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: process.env.PUBLIC_PATH || '/', // Use environment variable or fallback to '/'
+        publicPath: isProduction ? '/memory-game/' : '/', // Use '/memory-game/' for production
     },
     module: {
         rules: [
@@ -63,5 +62,5 @@ module.exports = {
         port: 9000,
         hot: true,
     },
-    mode: process.env.NODE_ENV || 'development', // Use environment variable or fallback to 'development'
+    mode: isProduction ? 'production' : 'development', // Set mode based on environment
 };

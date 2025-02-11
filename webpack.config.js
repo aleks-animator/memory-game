@@ -26,16 +26,21 @@ module.exports = {
             {
                 test: /\.scss$/i,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader',
-                    'sass-loader',
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: isProduction ? '../' : '/', // Fix the asset URL paths for production and dev
+                        },
+                    },
+                    'css-loader', // Translates CSS into CommonJS
+                    'sass-loader', // Compiles SCSS to CSS
                 ],
             },
             {
                 test: /\.(png|jpe?g|gif|svg)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'images/[path][name][ext]',
+                    filename: 'images/[name][ext]',
                 },
             },
             {
@@ -50,13 +55,13 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
-                { from: 'images', to: 'images' },
-                { from: 'fonts', to: 'fonts' }, // Copy fonts to the dist folder
+                { from: 'images', to: 'images' }, // Copy images to the dist folder
+                { from: 'fonts', to: 'fonts' },   // Copy fonts to the dist folder
                 { from: 'index.html', to: 'index.html' },
             ],
         }),
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: 'styles.css', // Output CSS file name
         }),
     ],
     resolve: {

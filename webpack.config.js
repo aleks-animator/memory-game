@@ -10,7 +10,7 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: isProduction ? '/memory-game/' : '/', // Use '/memory-game/' for production
+        publicPath: isProduction ? '/memory-game/' : '/', // Correct for GitHub Pages
     },
     module: {
         rules: [
@@ -38,12 +38,20 @@ module.exports = {
                     filename: 'images/[path][name][ext]',
                 },
             },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name][ext]',
+                },
+            },
         ],
     },
     plugins: [
         new CopyPlugin({
             patterns: [
                 { from: 'images', to: 'images' },
+                { from: 'fonts', to: 'fonts' }, // Copy fonts to the dist folder
                 { from: 'index.html', to: 'index.html' },
             ],
         }),
@@ -62,5 +70,5 @@ module.exports = {
         port: 9000,
         hot: true,
     },
-    mode: isProduction ? 'production' : 'development', // Set mode based on environment
+    mode: isProduction ? 'production' : 'development',
 };

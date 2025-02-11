@@ -38,8 +38,9 @@
     }
     .cats-layout &--bg .rounded,
     &.badge--cats .rounded {
-        background: v.$white url("../images/avatar/cat.jpg") no-repeat center center;
+        background: white url("../images/avatar/cat.jpg") no-repeat center center;
         background-size: 100%;
+        position: relative;
     }
 
     .dogs-layout &--bg .rounded,
@@ -59,4 +60,5 @@
         background: v.$white url("../images/avatar/dolphin.jpg") no-repeat center center;
         background-size: 100%;
     }
+
 }

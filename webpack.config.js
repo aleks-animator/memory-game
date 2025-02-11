@@ -1,8 +1,8 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin'); // Add cssnano
 
-// Determine if we're in production mode
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath: isProduction ? '/memory-game/' : '/', // Correct for GitHub Pages
+        publicPath: isProduction ? '/memory-game/' : '/',
     },
     module: {
         rules: [
@@ -29,11 +29,11 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: isProduction ? '../' : '/', // Fix the asset URL paths for production and dev
+                            publicPath: isProduction ? '../' : '/',
                         },
                     },
-                    'css-loader', // Translates CSS into CommonJS
-                    'sass-loader', // Compiles SCSS to CSS
+                    'css-loader',
+                    'sass-loader',
                 ],
             },
             {
@@ -55,15 +55,42 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
-                { from: 'images', to: 'images' }, // Copy images to the dist folder
-                { from: 'fonts', to: 'fonts' },   // Copy fonts to the dist folder
-                { from: 'index.html', to: 'index.html' },
+                {
+                    from: 'images', // Copy everything inside the `images` folder
+                    to: 'images',   // Preserve the folder structure in `dist`
+                    noErrorOnMissing: true, // Ignore if the folder is missing
+                },
+                {
+                    from: 'fonts',
+                    to: 'fonts'
+                },
+                {
+                    from: 'index.html',
+                    to: 'index.html'
+                },
             ],
         }),
         new MiniCssExtractPlugin({
-            filename: 'styles.css', // Output CSS file name
+            filename: 'styles.css',
         }),
     ],
+    optimization: {
+        minimize: isProduction, // Enable minimization only in production
+        minimizer: [
+            `...`, // This preserves the default Webpack JS minimizer (Terser)
+            new CssMinimizerPlugin({
+                minimizerOptions: {
+                    preset: [
+                        'default',
+                        {
+                            discardComments: { removeAll: true }, // Remove all comments
+                            normalizeWhitespace: true, // Normalize whitespace
+                        },
+                    ],
+                },
+            }),
+        ],
+    },
     resolve: {
         extensions: ['.js', '.css', '.scss'],
     },

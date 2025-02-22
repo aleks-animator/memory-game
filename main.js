@@ -37,13 +37,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     createRankingTooltip(".team-rank"); 
 });
 
-document.getElementById('flip-button').addEventListener('click', function () {
-    startScoreProgress();
-    const { timer } = getGameState();
-    if (timer) {
-        clearInterval(timer);
+document.getElementById('flip-button').addEventListener('click', function (event) {
+    const boardFrame = getGameState().boardFrame;
+    if (boardFrame && boardFrame.classList.contains('flip')) {
+        startScoreProgress();
+        const { timer } = getGameState();
+        if (timer) {
+            clearInterval(timer);
+        }
+        startCounter();
     }
-    startCounter();
 });
 
 function startCounter() {

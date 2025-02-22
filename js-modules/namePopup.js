@@ -1,5 +1,5 @@
-// namePopup.js
 import { getGameState, setGameState } from './gameState.js';
+import { badWords, badWordPatterns } from './badWords.js';
 
 // Show the popup with a dynamic message and optional input field
 export function showPopup(message, showInput = false, confirmCallback = null) {
@@ -11,33 +11,27 @@ export function showPopup(message, showInput = false, confirmCallback = null) {
     const confirmButton = document.getElementById('confirm-btn');
 
     if (popup && overlay && popupMessage && nameInput && saveButton && confirmButton) {
-        // Set the message and title
         popupMessage.innerHTML = message;
 
-        // Show or hide the input field
         nameInput.style.display = showInput ? 'block' : 'none';
         saveButton.style.display = showInput ? 'block' : 'none';
         confirmButton.style.display = showInput ? 'none' : 'block';
 
-        // Show the popup and overlay
         popup.style.display = 'block';
         overlay.style.display = 'block';
 
-        // Handle confirm button click
         confirmButton.onclick = () => {
             if (confirmCallback) confirmCallback();
             hidePopup();
         };
 
-        // Handle save button click
         saveButton.onclick = () => {
             saveName();
-            hidePopup();
         };
     }
 }
 
-// Hide the popup and overlay
+// Hide the popup
 function hidePopup() {
     const popup = document.getElementById('name-popup');
     const overlay = document.getElementById('overlay');
@@ -48,23 +42,53 @@ function hidePopup() {
     }
 }
 
-// Save the player name to localStorage and update the game state
+// Validate username
+function isUsernameAllowed(username) {
+    if (username.length > 20) return false; // Enforce max length
+
+    const lowerUsername = username.toLowerCase();
+
+    // Check exact words
+    if (badWords.some(word => lowerUsername.includes(word))) return false;
+
+    // Check modified words (like f**k, a$$, f.u.c.k)
+    for (const pattern of badWordPatterns) {
+        const regex = new RegExp(pattern, "gi");
+        if (regex.test(lowerUsername)) return false;
+    }
+
+    return true;
+}
+
+// Save the player name with validation
 function saveName() {
     const nameInput = document.getElementById('player-name');
     if (!nameInput) return;
 
     const name = nameInput.value.trim();
 
-    if (name) {
-        localStorage.setItem('playerName', name);
-        setGameState({ playerName: name });
-        updatePlayerName();
-    } else {
+    if (!name) {
         showPopup('Please enter your name.', true);
+        return;
     }
+
+    if (name.length > 20) {
+        showPopup('Name is too long. Maximum 20 characters allowed.', true);
+        return;
+    }
+
+    if (!isUsernameAllowed(name)) {
+        showPopup('Invalid name. Please choose another.', true);
+        return;
+    }
+
+    localStorage.setItem('playerName', name);
+    setGameState({ playerName: name });
+    updatePlayerName();
+    hidePopup();
 }
 
-// Update the player name in the UI
+// Update player name in UI
 export function updatePlayerName() {
     const { playerName } = getGameState();
     const nameElement = document.querySelector('.player-panel__name');
@@ -74,13 +98,13 @@ export function updatePlayerName() {
     }
 }
 
-// Add functionality for the "Change Name" button
+// Change name button
 const changeNameButton = document.getElementById('change-name-btn');
 if (changeNameButton) {
     changeNameButton.addEventListener('click', () => showPopup('Enter your name:', true));
 }
 
-// Check if the player name is set, and show the popup if it's not
+// Check if name exists, otherwise ask
 export function checkAndShowNamePopup() {
     const playerName = getPlayerName();
     if (!playerName) {
@@ -88,7 +112,7 @@ export function checkAndShowNamePopup() {
     }
 }
 
-// Get the player name from localStorage
+// Get player name from localStorage
 export function getPlayerName() {
     return localStorage.getItem('playerName');
 }

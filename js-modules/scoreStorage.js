@@ -51,15 +51,23 @@ export function showBestResultsUi() {
 export function setupLeaderboardToggle() {
     const leaderboard = document.getElementById('leaderboard');
     const showScoresButton = document.querySelector('.pill-button--show-scores');
+    const hideScoresButton = document.querySelector('.leaderboard-close');
 
     if (showScoresButton && leaderboard) {
+        // Toggle leaderboard open state on show button click
         showScoresButton.addEventListener('click', () => {
-            // Check if the leaderboard is currently hidden (right = 100%) and toggle accordingly
             if (leaderboard.classList.contains('leaderboard-opened')) {
                 leaderboard.classList.remove('leaderboard-opened');
             } else {
                 leaderboard.classList.add('leaderboard-opened');
             }
+        });
+    }
+
+    if (hideScoresButton && leaderboard) {
+        // Close leaderboard when close button is clicked
+        hideScoresButton.addEventListener('click', () => {
+            leaderboard.classList.remove('leaderboard-opened');
         });
     }
 }

@@ -2,7 +2,7 @@ import { getGameState, setGameState } from './gameState.js';
 import { badWords, badWordPatterns } from './badWords.js';
 
 // Show the popup with a dynamic message and optional input field
-export function showPopup(message, showInput = false, confirmCallback = null) {
+export function showPopup(message, showInput = false, confirmCallback = null, hideConfirmButton = false) {
     const popup = document.getElementById('name-popup');
     const overlay = document.getElementById('overlay');
     const popupMessage = document.getElementById('popup-message');
@@ -15,15 +15,17 @@ export function showPopup(message, showInput = false, confirmCallback = null) {
 
         nameInput.style.display = showInput ? 'block' : 'none';
         saveButton.style.display = showInput ? 'block' : 'none';
-        confirmButton.style.display = showInput ? 'none' : 'block';
+        confirmButton.style.display = hideConfirmButton ? 'none' : (showInput ? 'none' : 'block');
 
         popup.style.display = 'block';
         overlay.style.display = 'block';
 
-        confirmButton.onclick = () => {
-            if (confirmCallback) confirmCallback();
-            hidePopup();
-        };
+        if (!hideConfirmButton) {
+            confirmButton.onclick = () => {
+                if (confirmCallback) confirmCallback();
+                hidePopup();
+            };
+        }
 
         saveButton.onclick = () => {
             saveName();
@@ -31,8 +33,9 @@ export function showPopup(message, showInput = false, confirmCallback = null) {
     }
 }
 
+
 // Hide the popup
-function hidePopup() {
+export function hidePopup() {
     const popup = document.getElementById('name-popup');
     const overlay = document.getElementById('overlay');
 

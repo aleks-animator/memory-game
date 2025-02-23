@@ -10,6 +10,8 @@ import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores } from './j
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
 import { initChart } from './js-modules/chart.js';
 import { createRankingTooltip } from './js-modules/tooltip.js';
+import { showPopup, hidePopup } from './js-modules/namePopup.js';
+
 
 // Prepare images and set initial game state
 setGameState({
@@ -38,16 +40,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 document.getElementById('flip-button').addEventListener('click', function (event) {
+    startCountdownBeforeFlip();
+});
+
+function startCountdownBeforeFlip() {
     const boardFrame = getGameState().boardFrame;
     if (boardFrame && boardFrame.classList.contains('flip')) {
-        startScoreProgress();
-        const { timer } = getGameState();
-        if (timer) {
-            clearInterval(timer);
-        }
-        startCounter();
+        let countdown = 3;
+        showPopup(`Get ready! <br><span class="countdown-number">${countdown}</span>`, false, null, true); // Ensure confirm stays hidden
+
+        const countdownInterval = setInterval(() => {
+            countdown--;
+
+            if (countdown > 0) {
+                document.getElementById('popup-message').innerHTML = `Get ready! <br><span class="countdown-number">${countdown}</span>`; // Update only message
+            } else {
+                clearInterval(countdownInterval);
+                hidePopup(); // Close popup after countdown
+                checkAndExecuteFlipLogic(); // Proceed with the original logic
+            }
+        }, 1000);
     }
-});
+}
+
+
+function checkAndExecuteFlipLogic() {
+    startScoreProgress();
+    const { timer } = getGameState();
+    if (timer) {
+        clearInterval(timer);
+    }
+    startCounter();
+}
 
 function startCounter() {
     const startTime = performance.now(); // Start tracking exact time

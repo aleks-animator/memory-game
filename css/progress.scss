@@ -47,7 +47,7 @@
   bottom: 40px;
   right: -200px;
   height: 18px;
-  width: 126px;
+  width: 166px;
   padding: 10px;
   text-align: center;
   line-height: 0.9;
@@ -57,11 +57,11 @@
   transition: right 0.3s, height 0.3s;
   &__text {
     display: block;
-    color: v.$primary-color;
+    color: v.$white;
     font-size: 18px;
     opacity: 0;
     transition: opacity 0.3s;
-    margin-top: 12px;
+    margin-top: 10px;
   }
   &::after {
     content: '';

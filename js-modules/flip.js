@@ -25,6 +25,15 @@ export function flipBoard(boardElement, frontBoard, backBoard, button) {
         // Toggle button text based on the flip state
         button.textContent = isFlipped ? "Quit game" : "Start game";
 
+        // Add/remove classes for "start" and "quit" on the button
+        if (isFlipped) {
+            button.classList.add('quit');
+            button.classList.remove('start');
+        } else {
+            button.classList.add('start');
+            button.classList.remove('quit');
+        }
+
         // Trigger resetProgressBar when flipping back to front
         if (!isFlipped) {
             resetProgressBar();

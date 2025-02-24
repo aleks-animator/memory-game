@@ -170,7 +170,7 @@ function endGame() {
         if (timeDifference <= 3000) { // If within 3 seconds
             highlightMessage = `You were just <strong>${(timeDifference / 1000).toFixed(3)} seconds away</strong> from setting a new best score!`;
         } else {
-            highlightMessage = `Your time was <strong>${(timeDifference / 1000).toFixed(3)} seconds</strong> behind the best score.`;
+            highlightMessage = `Your time is <strong>${(timeDifference / 1000).toFixed(3)} seconds</strong> behind the best score.`;
         }
     } else {
         highlightMessage = `No best time recorded yet. Be the first to set a record!`;

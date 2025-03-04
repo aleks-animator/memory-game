@@ -144,3 +144,10 @@
   justify-content: center;
   align-items: center;
 }
+
+.game-settings {
+  display: none;
+  .pill-button {
+    margin-bottom: 10px;
+  }
+}

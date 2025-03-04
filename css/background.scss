@@ -17,7 +17,16 @@ body {
     margin: 0;
     padding: 0;
     transition: background 1.2s ease-in-out;
-
+    &.no-background {
+        background: v.$gray !important;
+        transition: none !important;
+        animation: none !important;
+        &:after {
+            background: v.$secondary-color !important;
+            transition: none !important;
+            animation: none !important;
+        }
+    }
     &::after {
         content: "";
         position: fixed;

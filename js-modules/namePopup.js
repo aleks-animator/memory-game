@@ -9,6 +9,7 @@ export function showPopup(message, showInput = false, confirmCallback = null, hi
     const nameInput = document.getElementById('player-name');
     const saveButton = document.getElementById('save-name-btn');
     const confirmButton = document.getElementById('confirm-btn');
+    const gameSettings = document.querySelector('.game-settings');
 
     if (popup && overlay && popupMessage && nameInput && saveButton && confirmButton) {
         popupMessage.innerHTML = message;
@@ -16,6 +17,11 @@ export function showPopup(message, showInput = false, confirmCallback = null, hi
         nameInput.style.display = showInput ? 'block' : 'none';
         saveButton.style.display = showInput ? 'block' : 'none';
         confirmButton.style.display = hideConfirmButton ? 'none' : (showInput ? 'none' : 'block');
+
+        // Hide the game-settings block by default
+        if (gameSettings) {
+            gameSettings.style.display = 'none';
+        }
 
         popup.style.display = 'block';
         overlay.style.display = 'block';
@@ -32,7 +38,6 @@ export function showPopup(message, showInput = false, confirmCallback = null, hi
         };
     }
 }
-
 
 // Hide the popup
 export function hidePopup() {
@@ -118,4 +123,140 @@ export function checkAndShowNamePopup() {
 // Get player name from localStorage
 export function getPlayerName() {
     return localStorage.getItem('playerName');
+}
+
+// Show the game settings popup
+export function showSettingsPopup() {
+    const popup = document.getElementById('name-popup');
+    const overlay = document.getElementById('overlay');
+    const gameSettings = document.querySelector('.game-settings');
+
+    if (popup && overlay && gameSettings) {
+        // Hide the default popup content
+        const popupMessage = document.getElementById('popup-message');
+        const nameInput = document.getElementById('player-name');
+        const saveButton = document.getElementById('save-name-btn');
+        const confirmButton = document.getElementById('confirm-btn');
+
+        if (popupMessage && nameInput && saveButton && confirmButton) {
+            popupMessage.style.display = 'none';
+            nameInput.style.display = 'none';
+            saveButton.style.display = 'none';
+            confirmButton.style.display = 'none';
+        }
+
+        // Show the game-settings block
+        gameSettings.style.display = 'block';
+
+        // Show the popup and overlay
+        popup.style.display = 'block';
+        overlay.style.display = 'block';
+
+        // Add event listener for the close button inside game-settings
+        const closeButton = document.getElementById('close-popup');
+        if (closeButton) {
+            closeButton.addEventListener('click', hidePopup);
+        }
+
+        // Add event listeners for the settings buttons
+        const removeBackgroundButton = document.getElementById('remove-background');
+        const rngColorBlockButton = document.getElementById('rng-color-block');
+
+        if (removeBackgroundButton) {
+            removeBackgroundButton.addEventListener('click', toggleBackground);
+        }
+
+        if (rngColorBlockButton) {
+            rngColorBlockButton.addEventListener('click', toggleColorGrid);
+        }
+    }
+}
+
+// Toggle background theme
+function toggleBackground() {
+    const body = document.body;
+    const removeBackgroundButton = document.getElementById('remove-background');
+
+    if (body && removeBackgroundButton) {
+        // Toggle the "no-background" class on the body
+        body.classList.toggle('no-background');
+
+        // Save the state in localStorage
+        const isBackgroundDisabled = body.classList.contains('no-background');
+        localStorage.setItem('no-background', isBackgroundDisabled);
+
+        // Toggle the button text
+        if (isBackgroundDisabled) {
+            removeBackgroundButton.textContent = 'Activate Theme Background';
+        } else {
+            removeBackgroundButton.textContent = 'Deactivate Theme Background';
+        }
+
+        // Toggle the "active" class on the button
+        removeBackgroundButton.classList.toggle('pill-button--active');
+    }
+}
+
+// Toggle multi-color game grid
+function toggleColorGrid() {
+    const body = document.body;
+    const rngColorBlockButton = document.getElementById('rng-color-block');
+
+    if (body && rngColorBlockButton) {
+        // Toggle the "no-card-bg" class on the body
+        body.classList.toggle('no-card-bg');
+
+        // Save the state in localStorage
+        const isCardBgDisabled = body.classList.contains('no-card-bg');
+        localStorage.setItem('no-card-bg', isCardBgDisabled);
+
+        // Toggle the button text
+        if (isCardBgDisabled) {
+            rngColorBlockButton.textContent = 'Activate Multi-Color Game Grid';
+        } else {
+            rngColorBlockButton.textContent = 'Deactivate Multi-Color Game Grid';
+        }
+
+        // Toggle the "active" class on the button
+        rngColorBlockButton.classList.toggle('pill-button--active');
+    }
+}
+
+// Initialize button and body class states based on localStorage
+export function initializeSettings() {
+    const body = document.body;
+    const removeBackgroundButton = document.getElementById('remove-background');
+    const rngColorBlockButton = document.getElementById('rng-color-block');
+
+    // Initialize "no-background" state
+    const isBackgroundDisabled = localStorage.getItem('no-background') === 'true';
+    if (isBackgroundDisabled) {
+        body.classList.add('no-background');
+        removeBackgroundButton.textContent = 'Activate Theme Background';
+        removeBackgroundButton.classList.add('pill-button--active');
+    } else {
+        body.classList.remove('no-background');
+        removeBackgroundButton.textContent = 'Deactivate Theme Background';
+        removeBackgroundButton.classList.remove('pill-button--active');
+    }
+
+    // Initialize "no-card-bg" state
+    const isCardBgDisabled = localStorage.getItem('no-card-bg') === 'true';
+    if (isCardBgDisabled) {
+        body.classList.add('no-card-bg');
+        rngColorBlockButton.textContent = 'Activate Multi-Color Game Grid';
+        rngColorBlockButton.classList.add('pill-button--active');
+    } else {
+        body.classList.remove('no-card-bg');
+        rngColorBlockButton.textContent = 'Deactivate Multi-Color Game Grid';
+        rngColorBlockButton.classList.remove('pill-button--active');
+    }
+}
+
+// Attach event listener for the settings button
+export function setOptions() {
+    const optionButton = document.getElementById('option-btn');
+    if (optionButton) {
+        optionButton.addEventListener('click', showSettingsPopup);
+    }
 }

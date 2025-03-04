@@ -59,6 +59,12 @@
     }
 }
 
+body.no-card-bg {
+    .card {
+        background-color: v.$card-color !important;
+    }
+}
+
 .cats-layout {
     .card {
         background-image: url(../images/block-bg.svg);

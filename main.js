@@ -10,7 +10,7 @@ import { showBestResultsUi, setupLeaderboardToggle, loadGlobalScores } from './j
 import { startScoreProgress, toggleTimerVisibility } from './js-modules/gameProgress.js';
 import { initChart } from './js-modules/chart.js';
 import { createRankingTooltip } from './js-modules/tooltip.js';
-import { showPopup, hidePopup } from './js-modules/namePopup.js';
+import { showPopup, hidePopup, setOptions, initializeSettings } from './js-modules/namePopup.js';
 
 
 // Prepare images and set initial game state
@@ -36,7 +36,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     setupLeaderboardToggle();
     await loadGlobalScores(); 
     initChart(); 
-    createRankingTooltip(".team-rank"); 
+    createRankingTooltip(".team-rank");
+    setOptions();
+    initializeSettings();
 });
 
 document.getElementById('flip-button').addEventListener('click', function (event) {

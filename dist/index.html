@@ -86,9 +86,17 @@
             <button id="save-name-btn" class="pill-button pill-button--green">Save</button>
             <button id="confirm-btn" class="pill-button pill-button--blue">OK</button>
         </div>
+
+        <div class="game-settings">
+            <h3>Settings</h3>
+            <button id="remove-background" class="pill-button pill-button--active">Deactivate Theme Background</button>
+            <button id="rng-color-block" class="pill-button pill-button--active">Deactivate Multi-Color Game Grid</button>
+            <button id="close-popup" class="pill-button pill-button--blue">OK</button>
+        </div>
     </div>
 
     <div id="leaderboard">
+        <div class="leaderboard-close">X</div>
         <div class="leaderboard-section">
             <h3>Your 10 Scores</h3>
             <ul id="score-list"></ul>
@@ -112,6 +120,9 @@
                 <button id="change-name-btn" class="pill-button">
                     Change Name
                 </button>
+                <button id="option-btn" class="pill-button">
+                    Settings
+                </button>
             </div>
           
         </div>
@@ -123,7 +134,7 @@
     <div id="progress-container">
         <div id="progress-line"></div>
         <div id="bullet"></div>
-        <div class="score-to-beat">Highscore</div>
+        <div class="score-to-beat">TOP SCORE<span class="score-to-beat__text"></span></div>
     </div>
 
 

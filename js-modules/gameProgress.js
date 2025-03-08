@@ -81,7 +81,7 @@ function animateScoreHighlight() {
 
         // After 1s, expand height and set opacity
         setTimeout(() => {
-            scoreHolder.style.height = '60px';
+            scoreHolder.style.height = '40px';
             scoreText.style.opacity = '1';
         }, 2000);
     }, 1000);

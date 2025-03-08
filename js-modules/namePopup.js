@@ -13,7 +13,7 @@ export function showPopup(message, showInput = false, confirmCallback = null, hi
 
     if (popup && overlay && popupMessage && nameInput && saveButton && confirmButton) {
         popupMessage.innerHTML = message;
-
+        popupMessage.style.display = 'block';
         nameInput.style.display = showInput ? 'block' : 'none';
         saveButton.style.display = showInput ? 'block' : 'none';
         confirmButton.style.display = hideConfirmButton ? 'none' : (showInput ? 'none' : 'block');
@@ -191,9 +191,6 @@ function toggleBackground() {
         } else {
             removeBackgroundButton.textContent = 'Deactivate Theme Background';
         }
-
-        // Toggle the "active" class on the button
-        removeBackgroundButton.classList.toggle('pill-button--active');
     }
 }
 
@@ -216,9 +213,6 @@ function toggleColorGrid() {
         } else {
             rngColorBlockButton.textContent = 'Deactivate Multi-Color Game Grid';
         }
-
-        // Toggle the "active" class on the button
-        rngColorBlockButton.classList.toggle('pill-button--active');
     }
 }
 
@@ -233,11 +227,9 @@ export function initializeSettings() {
     if (isBackgroundDisabled) {
         body.classList.add('no-background');
         removeBackgroundButton.textContent = 'Activate Theme Background';
-        removeBackgroundButton.classList.add('pill-button--active');
     } else {
         body.classList.remove('no-background');
         removeBackgroundButton.textContent = 'Deactivate Theme Background';
-        removeBackgroundButton.classList.remove('pill-button--active');
     }
 
     // Initialize "no-card-bg" state
@@ -245,11 +237,9 @@ export function initializeSettings() {
     if (isCardBgDisabled) {
         body.classList.add('no-card-bg');
         rngColorBlockButton.textContent = 'Activate Multi-Color Game Grid';
-        rngColorBlockButton.classList.add('pill-button--active');
     } else {
         body.classList.remove('no-card-bg');
         rngColorBlockButton.textContent = 'Deactivate Multi-Color Game Grid';
-        rngColorBlockButton.classList.remove('pill-button--active');
     }
 }
 

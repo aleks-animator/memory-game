@@ -14,7 +14,11 @@ export function setGameCategory(btn) {
     btn.classList.toggle('pill-button--active');
 
     // Update body class with selected category layout
-    document.body.className = '';
+    document.body.classList.forEach(cls => {
+        if (cls.endsWith('-layout')) {
+            document.body.classList.remove(cls);
+        }
+    });
     document.body.classList.add(`${category}-layout`);
 
     // Remove active class from all preview images

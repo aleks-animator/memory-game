@@ -66,24 +66,44 @@ body.no-card-bg {
 }
 
 .cats-layout {
+    &.no-card-bg {
+        .card {
+            background-color: #f7bcbc !important;
+        }
+    }
     .card {
         background-image: url(../images/block-bg.png);
     }
 }
 
 .dogs-layout {
+    &.no-card-bg {
+        .card {
+            background-color:  #8ed4b3 !important;
+        }
+    }
     .card {
         background-image: url(../images/block-bg-dog.svg);
     }
 }
 
 .birds-layout {
+    &.no-card-bg {
+        .card {
+            background-color: #ffcc70 !important;
+        }
+    }
     .card {
         background-image: url(../images/block-bg-bird.svg);
     }
 }
 
 .seaanimals-layout {
+    &.no-card-bg {
+        .card {
+            background-color: #609cc7 !important;
+        }
+    }
     .card {
         background-image: url(../images/block-bg-sea.png);
     }

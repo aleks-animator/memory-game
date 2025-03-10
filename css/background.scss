@@ -18,7 +18,7 @@ body {
     padding: 0;
     transition: background 1.2s ease-in-out;
     &.no-background {
-        background: v.$gray !important;
+        background: #f7bcbc !important;
         transition: none !important;
         animation: none !important;
         &:after {
@@ -49,6 +49,9 @@ body {
         background: v.$dogs-gradient;
         background-size: 180% 180%;
         animation: gradient-animation 18s ease infinite;
+        &.no-background {
+            background: #8ed4b3 !important;
+        }
         &::after {
             background: url('../images/dog-pattern.svg');
             background-size: 150px 150px;
@@ -59,6 +62,9 @@ body {
         background: v.$birds-gradient;
         background-size: 180% 180%;
         animation: gradient-animation 18s ease infinite;
+        &.no-background {
+            background: #ffcc70 !important;
+        }
         &::after {
             background: url('../images/bird-pattern.svg');
             background-size: 150px 150px;
@@ -73,6 +79,10 @@ body {
             background: url('../images/sea-pattern.svg');
             background-size: 150px 150px;
         }
+        &.no-background {
+            background: #609cc7 !important;
+        }
+
     }
 }
 
